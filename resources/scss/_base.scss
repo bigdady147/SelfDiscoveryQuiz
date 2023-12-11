@@ -1,0 +1,124 @@
+html{
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-size: $font-size-base;
+    font-family: 'BlinkMacSystemFont', sans-serif !important;
+    line-height: $line-height-base;
+    background-color: #e9ecef;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    box-shadow: 0 0 7px -1px #bdbdbd;
+}
+
+.container {
+    max-width: 1282px;
+}
+
+a {
+    &:hover, &:focus {
+        text-decoration: none;
+    }
+}
+
+h4, .h4{
+    font-size: 1.2rem;
+}
+h5, .h5{
+    font-size: 1rem;
+}
+h6, .h6{
+    font-size: 0.8rem;
+}
+.fs-sm{
+    font-size: 0.875em !important;
+    font-weight: 400 !important;
+}
+
+.text-aqua{color: aqua}
+.text-black{color: black}
+.text-blue{color: blue}
+.text-fuchsia{color: fuchsia}
+.text-gray{color: gray}
+.text-green{color: green}
+.text-lime{color: lime}
+.text-maroon{color: maroon}
+.text-navy{color: navy}
+.text-olive{color: olive}
+.text-purple{color: purple}
+.text-red{color: red}
+.text-silver{color: silver}
+.text-teal{color: teal}
+.text-white{color: white}
+.text-yellow{color: yellow}
+.text-aliceblue{color: aliceblue}
+.text-antiquewhite{color: antiquewhite}
+.text-aquamarine{color: aquamarine}
+.text-azure{color: azure}
+.text-beige{color: beige}
+.text-bisque{color: bisque}
+.text-blanchedalmond{color: blanchedalmond}
+.text-brown{color: brown}
+.text-burlywood{color: burlywood}
+.text-cadetblue{color: cadetblue}
+.text-chartreuse{color: chartreuse}
+.text-chocolate{color: chocolate}
+.text-coral{color: coral}
+.text-cornflowerblue{color: cornflowerblue}
+.text-cornsilk{color: cornsilk}
+.text-crimson{color: crimson}
+.text-darkblue{color: darkblue}
+.text-darkcyan{color: darkcyan}
+.text-darkgoldenrod{color: darkgoldenrod}
+.text-darkgray{color: darkgray}
+.text-darkgreen{color: darkgreen}
+.text-darkkhaki{color: darkkhaki}
+.text-darkmagenta{color: darkmagenta}
+.text-darkolivegreen{color: darkolivegreen}
+.text-c-green {color: #0ac282}
+
+.bg-aqua{background-color: aqua}
+.bg-black{background-color: black}
+.bg-blue{background-color: blue}
+.bg-fuchsia{background-color: fuchsia}
+.bg-gray{background-color: gray}
+.bg-green{background-color: green}
+.bg-lime{background-color: lime}
+.bg-maroon{background-color: maroon}
+.bg-navy{background-color: navy}
+.bg-olive{background-color: olive}
+.bg-purple{background-color: purple}
+.bg-red{background-color: red}
+.bg-silver{background-color: silver}
+.bg-teal{background-color: teal}
+.bg-white{background-color: white}
+.bg-yellow{background-color: yellow}
+.bg-aliceblue{background-color: aliceblue}
+.bg-antiquewhite{background-color: antiquewhite}
+.bg-aquamarine{background-color: aquamarine}
+.bg-azure{background-color: azure}
+.bg-beige{background-color: beige}
+.bg-bisque{background-color: bisque}
+.bg-blanchedalmond{background-color: blanchedalmond}
+.bg-brown{background-color: brown}
+.bg-burlywood{background-color: burlywood}
+.bg-cadetblue{background-color: cadetblue}
+.bg-chartreuse{background-color: chartreuse}
+.bg-chocolate{background-color: chocolate}
+.bg-coral{background-color: coral}
+.bg-cornflowerblue{background-color: cornflowerblue}
+.bg-cornsilk{background-color: cornsilk}
+.bg-crimson{background-color: crimson}
+.bg-darkblue{background-color: darkblue}
+.bg-darkcyan{background-color: darkcyan}
+.bg-darkgoldenrod{background-color: darkgoldenrod}
+.bg-darkgray{background-color: darkgray}
+.bg-darkgreen{background-color: darkgreen}
+.bg-darkkhaki{background-color: darkkhaki}
+.bg-darkmagenta{background-color: darkmagenta}
+.bg-darkolivegreen{background-color: darkolivegreen}
+.bg-aqua-40 {background-color: rgb(209 236 241 / 40%)}

@@ -1,0 +1,85 @@
+// Function rem
+$pixelBases: 12;
+
+@function rem($pixels, $context: $pixelBases) {
+	@if (unitless($pixels)) {
+		$pixels: $pixels * 1px;
+	}
+
+	@if (unitless($context)) {
+		$context: $context * 1px;
+	}
+
+	@return $pixels / $context * 1rem;
+}
+
+@mixin ellipsis($height, $line) {
+	-webkit-box-orient: vertical;
+
+	display: -webkit-box;
+	overflow: hidden;
+	max-height: $height;
+	text-overflow: ellipsis;
+
+	-webkit-line-clamp: $line;
+}
+
+
+@mixin breakpoint($media) {
+	@if $media == sx {
+		@media (max-width: 375px) {
+			@content;
+		}
+	}
+	@else if $media == sm {
+		@media (max-width: 575.98px) {
+			@content;
+		}
+	}
+	@else if $media == md {
+		@media (max-width: 767.98px) {
+			@content;
+		}
+	}
+	@else if $media == lg {
+		@media (max-width: 991.98px) {
+			@content;
+		}
+	}
+	@else if $media == xl {
+		@media (max-width: 1199.98px) {
+			@content;
+		}
+	}
+}
+
+
+.styled-checkbox{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.button-small {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    border:  none;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    &:hover{
+        //background-color: #000;
+        //color: #fff;
+    }
+}
+
+.ml-2{
+    margin-left: 6px;
+}
+.pl-2{
+    padding-left: 6px;
+}

@@ -1,0 +1,39 @@
+.quicktest{
+    .page-section{
+        padding: 50px 0px;
+    }
+    .home{
+        background: linear-gradient(128deg, rgba(56,124,249,1) 0%, rgba(87,37,132,1) 100%);
+        .images{
+            img{
+                display: block;
+                max-width: 68%;
+                margin: 0 auto;
+            }
+        }
+        .big-title{
+            .title{
+                color: #e0d010;
+                font-size: 34px;
+                line-height: 44px;
+                font-weight: 700;
+            }
+            .text{
+                font-size: 16px;
+                font-weight: 400;
+                color: #fff;
+                padding: 30px 0px;
+            }
+        }
+        .btn-started{
+            background: linear-gradient(115deg, rgb(231 203 81) 0%, rgb(239 176 71) 96%);
+            padding: 8px 32px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 400;
+        }
+    }
+}

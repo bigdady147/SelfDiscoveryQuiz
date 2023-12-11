@@ -1,0 +1,14 @@
+@use "sass:math";
+@import "~bootstrap/scss/bootstrap";
+
+@import 'fonts';
+@import 'variables';
+@import 'mixin';
+@import 'base';
+@import 'reset';
+
+@import 'form/input';
+@import 'main/dashboard';
+
+//AUTH
+@import 'auth/register';
