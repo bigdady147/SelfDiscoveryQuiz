@@ -1,11 +1,13 @@
 <template>
     <main id="main">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3 sidebar">
+            <div  class="row">
+                <div style="padding-left: 0px; padding-right: 0px" class="col-md-3 sidebar">
                     <administration_sidebar></administration_sidebar>
                 </div>
-                <div class="col-md-9 content">
+                <div style="padding-left: 0px; padding-right: 0px" class="col-md-9 content">
+                    <admin-menu></admin-menu>
+                    <slot name="BreadCrumb"></slot>
                     <slot name="BodyMain"></slot>
                     <!-- Nội dung của trang được chọn sẽ được hiển thị ở đây -->
                 </div>
@@ -14,7 +16,10 @@
     </main>
 </template>
 <script>
+import AdminMenu from "@/components/administrations/AdminMenu.vue";
+
 export default {
+    components: {AdminMenu},
 
     data: function () {
         return {

@@ -1,5 +1,8 @@
 <template>
     <LayoutMaster>
+        <template #BreadCrumb>
+            <admin-breadcrumb></admin-breadcrumb>
+        </template>
         <template #BodyMain>
             Hello world
         </template>
@@ -7,6 +10,7 @@
 </template>
 <script setup>
 import LayoutMaster from '../_layouts/Master.vue'
+import AdminBreadcrumb from "@/components/administrations/AdminBreadcrumb.vue";
 </script>
 <script >
 export default {
