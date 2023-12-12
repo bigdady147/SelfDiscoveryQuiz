@@ -10,5 +10,6 @@ export default {
 
     //Base (input, input number, select, select2)
     'toast' : defineAsyncComponent(()=> import('./base/Toast.vue')),
+    'page_loading' : defineAsyncComponent(()=> import('./base/PageLoading.vue')),
 }
 

@@ -16,6 +16,8 @@
 
 <script>
 export default {
+    name: 'Notification',
+
     data() {
         return {
             message: 'Nội dung thông báo của bạn',

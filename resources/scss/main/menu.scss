@@ -1,0 +1,41 @@
+.quick_nav{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: transparent;
+    transition: all 0.2s ease-out;
+
+    .nav-link{
+        color: $color_gold;
+        transition: all 0.2s ease-in-out;
+        &:hover{
+            color: #fff;
+        }
+    }
+    .nav-link-disable{
+        color: $color_gold;
+        &:hover{
+            color: $color_gold;
+        }
+    }
+    .btn-started{
+        background: transparent;
+        padding: 6px 32px;
+        border-radius: 10px;
+        outline: none;
+        color: $color_gold;;
+        font-size: 16px;
+        font-weight: 400;
+        border: 1px solid $color_gold;
+        margin-left: 10px;
+        transition: all 0.2s ease-in-out;
+
+        &:hover{
+            border: 1px solid #fff;
+            box-shadow: rgba(212, 178, 56, 0.4) 5px 5px, rgba(197, 175, 58, 0.3) 10px 10px, rgba(161, 149, 39, 0.2) 15px 15px, rgba(138, 114, 26, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;;
+        }
+    }
+
+}

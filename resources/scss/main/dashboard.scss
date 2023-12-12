@@ -3,6 +3,7 @@
         padding: 50px 0px;
     }
     .home{
+        padding-top: 180px;
         background: linear-gradient(128deg, rgba(56,124,249,1) 0%, rgba(87,37,132,1) 100%);
         .images{
             img{
@@ -34,6 +35,89 @@
             color: #fff;
             font-size: 16px;
             font-weight: 400;
+            transition: all 0.2s ease-out;
+            &:hover{
+                box-shadow: rgba(212, 178, 56, 0.4) 5px 5px, rgba(197, 175, 58, 0.3) 10px 10px, rgba(161, 149, 39, 0.2) 15px 15px, rgba(138, 114, 26, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;;
+            }
+        }
+    }
+    .about-top{
+        background: #212b36;
+        opacity: 0.9;
+        .about-head{
+            &-item{
+                padding: 20px 0px;
+                .title{
+
+                    font-size: 18px;
+                    line-height: 24px;
+                    color: #e0d010;
+                    padding-bottom: 10px;
+                }
+                .dot-head{
+                    width: 20px;
+                    height: 20px;
+                    background: #212b36;
+                    transform: rotate(45deg);
+                    margin: 0 auto;
+                    margin-bottom: -30px;
+                }
+
+            }
+        }
+    }
+    .about-body{
+        padding: 50px 0px;
+        &-data{
+            .item{
+                //background: #3c3c3c;
+                background: linear-gradient(128deg, rgb(56, 124, 249) 0%, rgb(87, 37, 132) 100%);
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: rgba(212, 178, 56, 0.4) 5px 5px, rgba(197, 175, 58, 0.3) 10px 10px, rgba(138, 114, 26, 0.1) 15px 15px;
+                .dot-head{
+                    width: 20px;
+                    height: 20px;
+                    background: #212b36;
+                    background: linear-gradient(128deg, rgb(56, 124, 249) 0%, rgb(87, 37, 132) 100%);
+
+                    transform: rotate(45deg);
+                    margin: 0 auto;
+                    margin-top: -30px;
+                }
+                .image{
+                    width: 180px;
+                    height: 180px;
+                    display: block;
+                    margin: 0 auto;
+                    img{
+                        max-width: 100%;
+                        max-height: 100%;
+                        display: block;
+                        margin: 0 auto;
+                    }
+                }
+                .text{
+                    min-height: 170px;
+                    .block{
+                        gap: 10px;
+                        padding-top: 10px;
+                        .dot{
+                            i{
+                                color: $color_gold;
+                            }
+                        }
+                        .des{
+                            font-size: 16px;
+                            padding-left: 10px;
+                            color: #fff;
+
+                        }
+                    }
+
+                }
+            }
+
         }
     }
 }

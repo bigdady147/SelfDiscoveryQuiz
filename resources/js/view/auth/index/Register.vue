@@ -1,6 +1,8 @@
 <template>
     <LayoutMaster>
         <template #BodyMain>
+
+            <page_loading v-if="loading"></page_loading>
             <div class="register-cover d-flex justify-content-center align-items-center">
                 <div class="register-cover-block ">
                     <div class="row">
@@ -79,8 +81,9 @@ export default {
                 username: '',
                 email: '',
                 password: '',
+                role: 'user',
             },
-
+            loading: false,
         };
     },
     created() {
@@ -95,17 +98,16 @@ export default {
     methods: {
         submitRegister(){
             let vm = this;
+            vm.loading = true;
             axios.post(`api/register`, vm.item_edit)
                 .then(response => {
-                    console.log('success', response);
                     toast.success(response.data.message, {autoClose: 1000});
                     setTimeout(()=>{
+                        vm.loading = false;
                         window.location.href = '/login';
-                    })
-                })
-                .catch(error => {
+                    }, 500)
+                }).catch(error => {
                     toast.error(error.message, {autoClose: 1000})
-
                 })
         }
     },

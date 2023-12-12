@@ -1,4 +1,4 @@
-import('./bootstrap');
+import('./bootstrap.js');
 import './bootstrap';
 import moment from 'moment';
 import * as _ from 'lodash';
