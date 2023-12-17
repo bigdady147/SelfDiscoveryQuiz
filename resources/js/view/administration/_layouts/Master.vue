@@ -19,6 +19,7 @@
 import AdminMenu from "@/components/administrations/AdminMenu.vue";
 
 export default {
+    name: 'MasterAdmin',
     components: {AdminMenu},
 
     data: function () {

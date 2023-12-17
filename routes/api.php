@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\QuestionController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+// API Authentication
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
@@ -29,14 +30,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::put('me', [AuthController::class, 'updateUser']);
 });
 
-//Route::group([
-//    'middleware' => 'api',
-//    'prefix' => 'auth'
-//
-//], function ($router) {
-//    Route::post('/login', [AuthController::class, 'login']);
-//    Route::post('/logout', [AuthController::class, 'logout']);
-//    Route::post('/refresh', [AuthController::class, 'refresh']);
-//    Route::get('/user-profile', [AuthController::class, 'userProfile']);
-//    Route::post('/change-pass', [AuthController::class, 'changePassWord']);
-//});
+
+//API Question
+Route::controller(QuestionController::class)->group(function () {
+    Route::get('questions', [QuestionController::class, 'index']);
+    Route::get('questions/{id}', [QuestionController::class, 'show']);
+    Route::post('questions', [QuestionController::class, 'store']);
+    Route::put('questions/{id}', [QuestionController::class, 'update']);
+    Route::delete('questions/{id}', [QuestionController::class, 'destroy']);
+});

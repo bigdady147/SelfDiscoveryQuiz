@@ -1,8 +1,10 @@
 <template>
     <LayoutMaster>
+        <template #loading>
+            <page_loading v-if="loading"></page_loading>
+        </template>
         <template #BodyMain>
 
-            <page_loading v-if="loading"></page_loading>
             <div class="register-cover d-flex justify-content-center align-items-center">
                 <div class="register-cover-block ">
                     <div class="row">

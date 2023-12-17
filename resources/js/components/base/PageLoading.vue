@@ -24,7 +24,7 @@ export default {
 
 <style scoped>
     .page-loading{
-        width: 100vw;
+        width: 100%;
         height: 100vh;
         position: absolute;
         display: flex;

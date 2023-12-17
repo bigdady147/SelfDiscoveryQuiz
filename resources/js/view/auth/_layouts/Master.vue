@@ -1,5 +1,6 @@
 <template>
     <main id="main">
+        <slot name="loading"></slot>
         <div class="container">
             <slot name="BodyMain"></slot>
         </div>

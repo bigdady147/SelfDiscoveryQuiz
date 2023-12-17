@@ -122,3 +122,10 @@ h6, .h6{
 .bg-darkmagenta{background-color: darkmagenta}
 .bg-darkolivegreen{background-color: darkolivegreen}
 .bg-aqua-40 {background-color: rgb(209 236 241 / 40%)}
+
+
+
+.router-custom {
+    color: unset !important;
+    text-decoration: none !important; /* Loại bỏ gạch chân khi link được kích hoạt */
+}

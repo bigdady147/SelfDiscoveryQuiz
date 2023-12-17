@@ -1,24 +1,25 @@
 <template>
-    <div class="sidebar-item">
-        <div class="block">
+    <router-link class="router-custom" :to="{name: link}">
+        <div class="sidebar-item">
+            <div class="block">
             <span class="icon">
                <i :class="icon"></i>
             </span>
-            <span class="text" v-text="text"></span>
+                <span class="text" v-text="text"></span>
+            </div>
         </div>
-    </div>
+    </router-link>
 </template>
 <script>
 export default {
     name: 'SidebarItem',
     props: {
+        link: {type: String, default: 'administration.index'},
         text: {type: String, default: 'Dashboard'},
         icon: {type: String, default: 'fa-solid fa-gauge'},
     },
     data: function () {
-        return {
-
-        };
+        return {};
     },
 
     created() {
@@ -27,38 +28,41 @@ export default {
     async mounted() {
 
     },
-    computed: {
-    },
-    methods: {
-    }
+    computed: {},
+    methods: {}
 }
 </script>
 
 <style lang="scss" scoped>
-.sidebar-item{
+.sidebar-item {
     padding: 12px 16px;
     cursor: pointer;
     transition: 0.2s ease-out;
 
-    &:hover{
+    &:hover {
         background: #37404a;
-        .block > .text{
+
+        .block > .text {
             color: #fff;
         }
-        .block > .icon{
+
+        .block > .icon {
             color: #fff;
         }
     }
-    .block{
+
+    .block {
         display: flex;
         justify-content: flex-start;
         gap: 12px;
         align-items: center;
-        .text{
+
+        .text {
             font-size: 14px;
             color: #ccc;
         }
-        .icon{
+
+        .icon {
             font-size: 14px;
             color: #ccc;
         }
@@ -66,4 +70,5 @@ export default {
     }
 
 }
+
 </style>
