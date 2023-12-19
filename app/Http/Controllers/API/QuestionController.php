@@ -14,9 +14,11 @@ class QuestionController extends Controller
 
     //
     // Lấy danh sách các câu hỏi với phân trang
-    public function index()
+    public function index(Request $request)
     {
-        $questions = Question::paginate(10);
+        $perPage = $request->input('per_page', 1);
+        $page = $request->input('page', 1);
+        $questions = Question::paginate($perPage, ['*'], 'page', $page);
         return response()->json($questions, 200);
     }
 

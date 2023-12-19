@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('image_question')->nullable();
             $table->string('options',)->nullable();
             $table->json('answer',)->nullable();
-            $table->string('time',)->nullable();
+            $table->double('time',)->nullable();
             $table->string('type_question',)->nullable();
             $table->string('status',)->nullable();
-            $table->string('level',)->nullable();
-            $table->string('category',)->nullable();
+            $table->double('level',)->nullable();
+            $table->double('category',)->nullable();
             $table->timestamps();
         });
     }

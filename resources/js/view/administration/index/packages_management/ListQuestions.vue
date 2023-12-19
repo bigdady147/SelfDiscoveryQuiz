@@ -8,6 +8,67 @@
                 <div class="list-action d-flex justify-content-end">
                     <button @click="addItem()" class="btn btn-sm btn-success">Create new</button>
                 </div>
+                <h2>List Question</h2>
+                <hr>
+                <div class="app-data-table">
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Content</th>
+                            <!--                            <th scope="col">Image</th>-->
+                            <!--                            <th scope="col">Answer</th>-->
+                            <th scope="col">Time(s)</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Created at</th>
+                            <th scope="col">Updated at</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(item, index) in list.data">
+                            <th scope="row" v-text="index + 1"></th>
+                            <td v-text="_.get(item,'content','')"></td>
+                            <!--                            <td>-->
+                            <!--                                <div class="img-data">-->
+                            <!--                                    <img :src="_.get(item, 'image_question', '')" alt="">-->
+                            <!--                                </div>-->
+                            <!--                            </td>-->
+                            <!--                            <td>-->
+                            <!--                                <ul v-if="item.answer.length > 0">-->
+                            <!--                                    <li class="mt-1" v-for="(ans, i) in item.answer" v-text="   ans.text"></li>-->
+                            <!--                                </ul>-->
+                            <!--                                <span v-else>N/A</span>-->
+                            <!--                            </td>-->
+                            <td v-text="toCurrency(_.get(item,'time',''))"></td>
+                            <td>
+                                <div v-for="(val, ti) in type_questions">
+                                    <span v-if="val.value == item.type_question" v-text="_.get(val,'text','')"></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div v-for="(val, ti) in levels">
+                                    <span v-if="val.value == item.level" v-text="_.get(val,'text','')"></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div v-for="(val, ti) in categories">
+                                    <span v-if="val.value == item.category" v-text="_.get(val,'text','')"></span>
+                                </div>
+                            </td>
+                            <td v-text="formattedTime(_.get(item,'created_at',''))"></td>
+                            <td v-text="formattedTime(_.get(item,'updated_at',''))"></td>
+                            <td v-text="_.get(item,'status','')"></td>
+                            <td v-text="_.get(item,'status','')"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <vee_pagination @page-changed="handlePageChange" :pagesCount="list.last_page"></vee_pagination>
+                </div>
             </div>
 
             <div id="modalAddNew" class="modal modal-xl fade" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -68,13 +129,20 @@
                                         Add answer
                                     </button>
                                 </div>
-                                <div v-for="(ans, i) in item_edit.answer" class="col-md-12 mb-2">
-                                    <label class="fw-medium mb-1">Answer</label>
-                                    <vee-input type="text" v-model="ans.text"></vee-input>
+                                <div v-for="(ans, i) in item_edit.answer" class="col-md-6 mb-2">
                                     <div>
-                                        <label class="fw-medium mb-1">Is correct</label>
-                                        <input type="checkbox" v-model="ans.is_correct">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <label class="fw-medium mb-1" v-text="'Answer' + ' ' + (i + 1)"></label>
+                                            </div>
+                                            <div class="d-flex align-items-center mb-1">
+                                                <div class="fw-medium  pe-2">Is correct</div>
+                                                <input type="checkbox" v-model="ans.is_correct">
+                                            </div>
+                                        </div>
                                     </div>
+                                    <vee-input type="text" v-model="ans.text"></vee-input>
+
                                 </div>
                             </div>
                         </div>
@@ -175,6 +243,12 @@ export default {
                 }
             ],
             header_token: {},
+            list: {
+                data: [],
+                page: 1,
+                per_page: 10,
+                last_page: 0,
+            }
         };
     },
 
@@ -189,7 +263,8 @@ export default {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
-        }
+        };
+        vm.loadList();
     },
     computed: {},
     methods: {
@@ -233,6 +308,36 @@ export default {
             formData.append('image', this.selectedFile);
 
         },
+        handlePageChange(page){
+            let vm = this;
+            vm.list.page = page;
+            vm.loadList();
+        },
+        toCurrency: function (value) {
+            if (value >= 1000 || value <= -1000) {
+                return (value === undefined) ? '' : Math.round(value, 0).toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            } else {
+                return value;
+            }
+        },
+        formattedTime(time) {
+            let formattedTime = moment(time).format('HH:mm DD/MM/YYYY');
+            return formattedTime;
+        },
+        loadList() {
+            let vm = this;
+            axios.get(`/api/questions?page=${vm.list.page}&per_page=${vm.list.per_page}`, vm.header_token)
+                .then(response => {
+                    vm.list.data = response.data.data;
+                    console.log(response.data.last_page);
+                    vm.list.last_page = response.data.last_page;
+                    _.map(vm.list.data, (val) => {
+                        val.answer = JSON.parse(val.answer);
+                    })
+                }).catch(error => {
+                toast.error(error, {autoClose: 1500});
+            })
+        },
         saveItem() {
             let vm = this;
             // let myModal = new bootstrap.Modal(document.getElementById('modalAddNew'));
@@ -244,7 +349,7 @@ export default {
             axios.post(`/api/questions`, vm.item_edit, vm.header_token)
                 .then(response => {
 
-                    toast.success(response.data.message, {autoClose: 1000});
+                    toast.success(response.data.message, {autoClose: 1500});
 
                     let myModalEl = document.getElementById('modalAddNew');
                     let modal = bootstrap.Modal.getInstance(myModalEl)
