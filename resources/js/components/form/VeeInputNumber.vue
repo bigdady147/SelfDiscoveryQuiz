@@ -50,6 +50,9 @@ export default {
     methods: {
     },
     watch: {
+        'modelValue' : function (val){
+            this.clone_value = val;
+        },
         'clone_value' (val){
             this.$emit('update:modelValue', parseFloat(val));
         }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use File;
 use Validator;
 
 class QuestionController extends Controller
@@ -59,15 +60,49 @@ class QuestionController extends Controller
         if (!$question) {
             return response()->json(['message' => 'Question not found'], 404);
         }
-
         // Xóa hình cũ nếu có
-        if ($request->hasFile('image')) {
-            Storage::delete('public/images/' . $question->image_question);
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->extension();
-            $image->storeAs('images', $imageName, 'public');
-            $question->image_question = $imageName;
+
+        if ($request->has('image_question')) {
+            $imagePath = public_path($question->image_question);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+                // Kiểm tra xem tệp tin đã bị xóa thành công hay không
+                if (!File::exists($imagePath)) {
+//                    dd('File deleted successfully');
+                    $image = $request->input('image_question');
+                    list(, $image) = explode(',', $image);
+                    $image = base64_decode($image);
+                    $extension = explode('/', explode(':', substr($request->input('image_question'), 0, strpos($request->input('image_question'), ';')))[1])[1];
+                    $imageName = uniqid() . '.' . $extension;
+                    file_put_contents(public_path('questions/' . $imageName), $image);
+                    $question->image_question = '/questions/' . $imageName;
+                } else {
+//                    dd('File deletion failed');
+                }
+            } else {
+                $image = $request->input('image_question');
+                list(, $image) = explode(',', $image);
+                $image = base64_decode($image);
+                $extension = explode('/', explode(':', substr($request->input('image_question'), 0, strpos($request->input('image_question'), ';')))[1])[1];
+                $imageName = uniqid() . '.' . $extension;
+                file_put_contents(public_path('questions/' . $imageName), $image);
+                $question->image_question = '/questions/' . $imageName;
+            }
         }
+
+
+        $question->content = $request->input('content');
+        $question->options = $request->input('options');
+        $question->answer = $request->input('answer');
+        $question->time = $request->input('time');
+        $question->type_question = $request->input('type_question');
+        $question->status = $request->input('status');
+        $question->level = $request->input('level');
+        $question->category = $request->input('category');
+        $question->update();
+
+        return response()->json(['message' => 'Question updated successfully'], 201);
+
 
         // Code cập nhật thông tin của câu hỏi đã được cung cấp ở ví dụ trước
     }

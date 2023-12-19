@@ -63,7 +63,36 @@
                             <td v-text="formattedTime(_.get(item,'created_at',''))"></td>
                             <td v-text="formattedTime(_.get(item,'updated_at',''))"></td>
                             <td v-text="_.get(item,'status','')"></td>
-                            <td v-text="_.get(item,'status','')"></td>
+                            <td>
+                                <div class="btn-group btn-table">
+                                    <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                        Action
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li @click="viewItem(item)"><a class="dropdown-item" href="#">
+                                            <span><i class="fa-regular fa-eye text-primary"></i></span>
+                                            <span class="pl-2">View</span>
+                                        </a></li>
+                                        <li @click="editItem(item)"><a class="dropdown-item" href="#">
+                                            <span><i class="fa-regular fa-pen-to-square text-warning"></i></span>
+                                            <span class="pl-2">Edit</span>
+                                        </a></li>
+                                        <li><a class="dropdown-item" href="#">
+                                            <span><i class="fa-solid fa-circle-check text-success"></i></span>
+                                            <span class="pl-2">Active</span>
+                                        </a></li>
+                                        <li><a class="dropdown-item" href="#">
+                                            <span><i class="fa-solid fa-trash-can text-danger"></i></span>
+                                            <span class="pl-2">Delete</span>
+                                        </a></li>
+                                        <!--                                        <li>-->
+                                        <!--                                            <hr class="dropdown-divider">-->
+                                        <!--                                        </li>-->
+                                        <!--                                        <li><a class="dropdown-item" href="#">Separated link</a></li>-->
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -82,11 +111,11 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12 mb-2">
-                                    <label class="fw-medium mb-1">Question name</label>
+                                    <label class="fw-medium mb-1 fs-label">Question name</label>
                                     <vee-input type="text" v-model="item_edit.content"></vee-input>
                                 </div>
                                 <div class="col-md-4 mb-2 ">
-                                    <label class="fw-medium mb-1">Type</label>
+                                    <label class="fw-medium mb-1 fs-label">Type</label>
                                     <select v-model="item_edit.type_question"
                                             class="form-control form-control-sm w-100px" name="" id="">
                                         <option v-for="(type, typei) in type_questions" :key="typei + 'type'"
@@ -95,13 +124,13 @@
                                     </select>
                                 </div>
                                 <div v-if="item_edit.type_question == 'image' " class="col-md-4">
-                                    <label class="fw-medium mb-1">Image</label>
+                                    <label class="fw-medium mb-1 fs-label">Image</label>
                                     <div>
                                         <input type="file" ref="fileInput" @change="handleFileUpload">
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-2 ">
-                                    <label class="fw-medium mb-1">List Category</label>
+                                    <label class="fw-medium mb-1 fs-label">List Category</label>
                                     <select v-model="item_edit.category" class="form-control form-control-sm w-100px"
                                             name="" id="">
                                         <option v-for="(type, typei) in categories" :key="typei + 'type'"
@@ -110,7 +139,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-2 ">
-                                    <label class="fw-medium mb-1">Type of question</label>
+                                    <label class="fw-medium mb-1 fs-label">Type of question</label>
                                     <select v-model="item_edit.level" class="form-control form-control-sm w-100px"
                                             name="" id="">
                                         <option v-for="(type, typei) in levels" :key="typei + 'type'"
@@ -119,7 +148,7 @@
                                     </select>
                                 </div>
                                 <div class="fw-medium col-md-4 mb-3">
-                                    <label class="fw-medium mb-1">Time (second)</label>
+                                    <label class="fw-medium mb-1 fs-label">Time (second)</label>
                                     <vee-input-number type="text" v-model.number="item_edit.time"></vee-input-number>
 
                                 </div>
@@ -133,10 +162,11 @@
                                     <div>
                                         <div class="d-flex justify-content-between">
                                             <div>
-                                                <label class="fw-medium mb-1" v-text="'Answer' + ' ' + (i + 1)"></label>
+                                                <label class="fw-medium mb-1 fs-label"
+                                                       v-text="'Answer' + ' ' + (i + 1)"></label>
                                             </div>
                                             <div class="d-flex align-items-center mb-1">
-                                                <div class="fw-medium  pe-2">Is correct</div>
+                                                <div class="fw-medium  pe-2 fs-label">Is correct</div>
                                                 <input type="checkbox" v-model="ans.is_correct">
                                             </div>
                                         </div>
@@ -149,6 +179,98 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" @click="saveItem" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="modalView" class="modal modal-xl fade" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit question</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12 mb-2">
+                                    <label class="fw-medium mb-1 fs-label">Question name</label>
+                                    <vee-input type="text" v-model="item_edit.content"></vee-input>
+                                </div>
+
+                                <div class="col-md-4 mb-2 ">
+                                    <label class="fw-medium mb-1 fs-label">List Category</label>
+                                    <select v-model="item_edit.category" class="form-control form-control-sm w-100px"
+                                            name="" id="">
+                                        <option v-for="(type, typei) in categories" :key="typei + 'type'"
+                                                :value="type.value" v-text="_.get(type,'text','')"></option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-2 ">
+                                    <label class="fw-medium mb-1 fs-label">Type of question</label>
+                                    <select v-model="item_edit.level" class="form-control form-control-sm w-100px"
+                                            name="" id="">
+                                        <option v-for="(type, typei) in levels" :key="typei + 'type'"
+                                                :value="type.value" v-text="_.get(type,'text','')"></option>
+
+                                    </select>
+                                </div>
+                                <div class="fw-medium col-md-4 mb-3">
+                                    <label class="fw-medium mb-1 fs-label">Time (second)</label>
+                                    <vee-input-number type="text" v-model.number="item_edit.time"></vee-input-number>
+
+                                </div>
+                                <div class="col-md-4 mb-2 ">
+                                    <label class="fw-medium mb-1 fs-label">Type</label>
+                                    <select v-model="item_edit.type_question"
+                                            class="form-control form-control-sm w-100px" name="" id="">
+                                        <option v-for="(type, typei) in type_questions" :key="typei + 'type'"
+                                                :value="type.value" v-text="_.get(type,'text','')"></option>
+
+                                    </select>
+                                </div>
+                                <div v-if="item_edit.type_question == 'image' " class="col-md-4">
+                                    <label class="fw-medium mb-1 fs-label">Image</label>
+                                    <div>
+                                        <input type="file" id="files" ref="fileInput" @change="handleFileUpload"
+                                               style="display: none">
+                                        <label for="files">
+                                            <p class="btn-sm btn btn-primary" type="button"
+                                               v-text="truncateString(_.get(item_edit,'image_question', 'Choose file'), 20)"></p>
+                                        </label>
+                                    </div>
+                                    <div class="img">
+                                        <img style="max-width: 60%" :src="item_edit.image_question" alt="">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex mb-2">
+                                    <button @click="addAnswer(item_edit)" type="button" class="btn btn-sm btn-primary">
+                                        Add answer
+                                    </button>
+                                </div>
+
+                                <div v-for="(ans, i) in item_edit.answer" class="col-md-6 mb-2 mt-2">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="mb-1">
+                                                <label class="fw-medium mb-1 fs-label"
+                                                       v-text="'Answer' + ' ' + (i + 1)"></label>
+                                            </div>
+                                            <div class="d-flex align-items-center mb-1">
+                                                <div class="fw-medium  pe-2 fs-label">Is correct</div>
+                                                <input type="checkbox" v-model="ans.is_correct">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <vee-input type="text" v-model="ans.text"></vee-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" @click="saveEditItem" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                 </div>
@@ -248,7 +370,9 @@ export default {
                 page: 1,
                 per_page: 10,
                 last_page: 0,
-            }
+            },
+            customFileText: 'Choose file',
+            fileInputData: null
         };
     },
 
@@ -271,7 +395,7 @@ export default {
         addAnswer(item) {
             let vm = this;
             let count = 0;
-            if (item.answer.length == 0) {
+            if ( item.answer.length == 0) {
                 item.answer.push({
                     id: count + 1,
                     text: '',
@@ -291,7 +415,18 @@ export default {
             let vm = this;
             let myModal = new bootstrap.Modal(document.getElementById('modalAddNew'));
             myModal.show();
-
+        },
+        viewItem(item) {
+            let vm = this;
+            vm.item_edit = _.cloneDeep(item);
+            let myModal = new bootstrap.Modal(document.getElementById('modalView'));
+            myModal.show();
+        },
+        editItem(item) {
+            let vm = this;
+            vm.item_edit = _.cloneDeep(item);
+            let myModal = new bootstrap.Modal(document.getElementById('modalView'));
+            myModal.show();
         },
         handleFileUpload(event) {
             let vm = this;
@@ -301,6 +436,8 @@ export default {
             reader.onload = function () {
                 vm.item_edit.image_question = reader.result;
             };
+
+
             console.log(vm.item_edit);
         },
         uploadImage() {
@@ -308,7 +445,7 @@ export default {
             formData.append('image', this.selectedFile);
 
         },
-        handlePageChange(page){
+        handlePageChange(page) {
             let vm = this;
             vm.list.page = page;
             vm.loadList();
@@ -338,27 +475,65 @@ export default {
                 toast.error(error, {autoClose: 1500});
             })
         },
+        clearData() {
+            let vm = this;
+            vm.item_edit = {
+                content: '',
+                type_question: '',
+                level: null,
+                category: null,
+                time: 0,
+                status: 'inactive',
+                answer: [],
+            };
+        },
+        truncateString(str, maxLength) {
+            if (str.length > maxLength) {
+                return str.substring(0, maxLength) + "...";
+            } else {
+                return str;
+            }
+        },
         saveItem() {
             let vm = this;
             // let myModal = new bootstrap.Modal(document.getElementById('modalAddNew'));
-            if (vm.item_edit.answer.length > 0) {
+            if (vm.item_edit.answer && vm.item_edit.answer.length > 0) {
                 vm.item_edit.answer = JSON.stringify(vm.item_edit.answer);
             } else {
                 vm.item_edit.answer = null;
             }
             axios.post(`/api/questions`, vm.item_edit, vm.header_token)
                 .then(response => {
-
                     toast.success(response.data.message, {autoClose: 1500});
-
                     let myModalEl = document.getElementById('modalAddNew');
                     let modal = bootstrap.Modal.getInstance(myModalEl)
                     modal.hide();
-
+                    vm.loadList();
+                    vm.clearData();
                 }).catch(error => {
                 toast.error(error, {autoClose: 1000});
             })
         },
+        saveEditItem() {
+            let vm = this;
+            if (vm.item_edit.answer &&  vm.item_edit.answer.length > 0) {
+                vm.item_edit.answer = JSON.stringify(vm.item_edit.answer);
+            } else {
+                vm.item_edit.answer = null;
+            }
+            axios.put(`/api/questions/${vm.item_edit.id}`, vm.item_edit, vm.header_token)
+                .then(response => {
+                    toast.success(response.data.message, {autoClose: 1500});
+                    let myModalEl = document.getElementById('modalView');
+                    let modal = bootstrap.Modal.getInstance(myModalEl)
+                    modal.hide();
+                    vm.loadList();
+                    vm.clearData();
+                }).catch(error => {
+                toast.error(error, {autoClose: 1000});
+            })
+        },
+
     }
 }
 </script>

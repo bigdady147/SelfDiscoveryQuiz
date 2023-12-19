@@ -3,6 +3,7 @@
        width: 100%;
        overflow-x: scroll;
    }
+
     .table{
         max-width: 100%;
         overflow: scroll;
@@ -31,4 +32,18 @@
             }
         }
     }
+    .btn-table{
+         button{
+            font-size: 10px;
+        }
+        li{
+            font-size: 10px;
+
+        }
+
+    }
+
+}
+.fs-label{
+    font-size: 12px ;
 }

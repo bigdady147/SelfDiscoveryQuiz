@@ -32,6 +32,9 @@ export default {
     methods: {
     },
     watch: {
+        'modelValue' (val){
+            this.clone_value = val;
+        },
         'clone_value' (val){
             this.$emit('update:modelValue', val);
         }
