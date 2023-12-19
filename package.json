@@ -12,6 +12,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@coders-tm/vue-number-format": "^3.34.0",
         "@vitejs/plugin-vue": "^4.5.2",
         "animate.css": "^4.1.1",
         "bootstrap": "^5.3.2",

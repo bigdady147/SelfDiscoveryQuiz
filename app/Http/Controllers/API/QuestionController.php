@@ -10,9 +10,7 @@ use Validator;
 
 class QuestionController extends Controller
 {
-    public function __construct() {
-        $this->middleware('auth:api');
-    }
+
 
     //
     // Lấy danh sách các câu hỏi với phân trang
@@ -35,17 +33,16 @@ class QuestionController extends Controller
     // Tạo mới một câu hỏi
     public function store(Request $request)
     {
-        $question = new Question();
-        $question->content = $request->input('content');
-        $question->options = $request->input('options');
-        $question->answer = $request->input('answer');
-        $question->category = $request->input('category');
+        $question = new Question($request->only('content', 'type_question', 'answer', 'category', 'level', 'status', 'time'));
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time().'.'.$image->extension();
-            $image->storeAs('images', $imageName, 'public');
-            $question->image_question = $imageName;
+        if ($request->has('image_question')) {
+            $image = $request->input('image_question');
+            list(, $image) = explode(',', $image);
+            $image = base64_decode($image);
+            $extension = explode('/', explode(':', substr($request->input('image_question'), 0, strpos($request->input('image_question'), ';')))[1])[1];
+            $imageName = uniqid() . '.' . $extension;
+            file_put_contents(public_path('questions/' . $imageName), $image);
+            $question->image_question = '/questions/' . $imageName;
         }
 
         $question->save();

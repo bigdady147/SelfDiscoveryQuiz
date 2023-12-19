@@ -3,7 +3,7 @@ import './bootstrap';
 import moment from 'moment';
 import * as _ from 'lodash';
 import axios from 'axios';
-// import $ from 'jquery';
+import $ from 'jquery';
 
 // window.jQuery = window.$ = $;
 import Vue3Toastify from 'vue3-toastify';
@@ -14,6 +14,7 @@ import VueFullpage from 'vue-fullpage'
 window.moment = moment;
 window._ = _;
 window.axios = axios;
+window.$ = $;
 
 
 //Import & use Libary

@@ -10,6 +10,8 @@ export default {
 
     //Form control (input, input number, select, select2)
     'vee_input' : defineAsyncComponent(()=> import('./form/VeeInput.vue')),
+    'vee_input_number' : defineAsyncComponent(()=> import('./form/VeeInputNumber.vue')),
+    'vee_select' : defineAsyncComponent(()=> import('./form/VeeSelect.vue')),
 
     //Base (input, input number, select, select2)
     'toast' : defineAsyncComponent(()=> import('./base/Toast.vue')),
