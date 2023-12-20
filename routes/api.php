@@ -33,4 +33,5 @@ Route::middleware('auth:api')->group(function () {
     Route::post('questions', [QuestionController::class, 'store']);
     Route::put('questions/{id}', [QuestionController::class, 'update']);
     Route::delete('questions/{id}', [QuestionController::class, 'destroy']);
+    Route::put('questions/{id}/active', [QuestionController::class, 'active']);
 });

@@ -8,97 +8,84 @@
                 <div class="list-action d-flex justify-content-end">
                     <button @click="addItem()" class="btn btn-sm btn-success">Create new</button>
                 </div>
-                <h2>List Question</h2>
+                <h2>List Question packages</h2>
                 <hr>
                 <div class="app-data-table">
 
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Content</th>
-                            <!--                            <th scope="col">Image</th>-->
-                            <!--                            <th scope="col">Answer</th>-->
-                            <th scope="col">Time(s)</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Level</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Created at</th>
-                            <th scope="col">Updated at</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="(item, index) in list.data">
-                            <th scope="row" v-text="index + 1"></th>
-                            <td v-text="_.get(item,'content','')"></td>
-                            <!--                            <td>-->
-                            <!--                                <div class="img-data">-->
-                            <!--                                    <img :src="_.get(item, 'image_question', '')" alt="">-->
-                            <!--                                </div>-->
-                            <!--                            </td>-->
-                            <!--                            <td>-->
-                            <!--                                <ul v-if="item.answer.length > 0">-->
-                            <!--                                    <li class="mt-1" v-for="(ans, i) in item.answer" v-text="   ans.text"></li>-->
-                            <!--                                </ul>-->
-                            <!--                                <span v-else>N/A</span>-->
-                            <!--                            </td>-->
-                            <td v-text="toCurrency(_.get(item,'time',''))"></td>
-                            <td>
-                                <div v-for="(val, ti) in type_questions">
-                                    <span v-if="val.value == item.type_question" v-text="_.get(val,'text','')"></span>
-                                </div>
-                            </td>
-                            <td>
-                                <div v-for="(val, ti) in levels">
-                                    <span v-if="val.value == item.level" v-text="_.get(val,'text','')"></span>
-                                </div>
-                            </td>
-                            <td>
-                                <div v-for="(val, ti) in categories">
-                                    <span v-if="val.value == item.category" v-text="_.get(val,'text','')"></span>
-                                </div>
-                            </td>
-                            <td v-text="formattedTime(_.get(item,'created_at',''))"></td>
-                            <td v-text="formattedTime(_.get(item,'updated_at',''))"></td>
-                            <td >
-                                <span :class="item.status == 'active' ? 'text-success' : 'text-warning' " v-text="_.get(item,'status','')"></span>
-                            </td>
-                            <td>
-                                <div class="btn-group btn-table">
-                                    <button type="button" class="btn btn-sm btn-primary dropdown-toggle"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                        Action
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li @click="viewItem(item)"><a class="dropdown-item" href="#">
-                                            <span><i class="fa-regular fa-eye text-primary"></i></span>
-                                            <span class="pl-2">View</span>
-                                        </a></li>
-                                        <li @click="editItem(item)"><a class="dropdown-item" href="#">
-                                            <span><i class="fa-regular fa-pen-to-square text-warning"></i></span>
-                                            <span class="pl-2">Edit</span>
-                                        </a></li>
-                                        <li @click="activeItem(item)"><a class="dropdown-item" href="#">
-                                            <span><i class="fa-solid fa-circle-check text-success"></i></span>
-                                            <span class="pl-2">Active</span>
-                                        </a></li>
-                                        <li @click="removeItem(item)"><a class="dropdown-item" href="#">
-                                            <span><i class="fa-solid fa-trash-can text-danger"></i></span>
-                                            <span class="pl-2">Delete</span>
-                                        </a></li>
-                                        <!--                                        <li>-->
-                                        <!--                                            <hr class="dropdown-divider">-->
-                                        <!--                                        </li>-->
-                                        <!--                                        <li><a class="dropdown-item" href="#">Separated link</a></li>-->
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <vee_pagination @page-changed="handlePageChange" :pagesCount="list.last_page"></vee_pagination>
+<!--                    <table class="table table-striped">-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <th scope="col">#</th>-->
+<!--                            <th scope="col">Content</th>-->
+<!--                            <th scope="col">Time(s)</th>-->
+<!--                            <th scope="col">Type</th>-->
+<!--                            <th scope="col">Level</th>-->
+<!--                            <th scope="col">Category</th>-->
+<!--                            <th scope="col">Created at</th>-->
+<!--                            <th scope="col">Updated at</th>-->
+<!--                            <th scope="col">Status</th>-->
+<!--                            <th scope="col">Action</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        <tr v-for="(item, index) in list.data">-->
+<!--                            <th scope="row" v-text="index + 1"></th>-->
+<!--                            <td v-text="_.get(item,'content','')"></td>-->
+<!--                            <td v-text="toCurrency(_.get(item,'time',''))"></td>-->
+<!--                            <td>-->
+<!--                                <div v-for="(val, ti) in type_questions">-->
+<!--                                    <span v-if="val.value == item.type_question" v-text="_.get(val,'text','')"></span>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                <div v-for="(val, ti) in levels">-->
+<!--                                    <span v-if="val.value == item.level" v-text="_.get(val,'text','')"></span>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                <div v-for="(val, ti) in categories">-->
+<!--                                    <span v-if="val.value == item.category" v-text="_.get(val,'text','')"></span>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                            <td v-text="formattedTime(_.get(item,'created_at',''))"></td>-->
+<!--                            <td v-text="formattedTime(_.get(item,'updated_at',''))"></td>-->
+<!--                            <td >-->
+<!--                                <span :class="item.status == 'active' ? 'text-success' : 'text-warning' " v-text="_.get(item,'status','')"></span>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                <div class="btn-group btn-table">-->
+<!--                                    <button type="button" class="btn btn-sm btn-primary dropdown-toggle"-->
+<!--                                            data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                                        Action-->
+<!--                                    </button>-->
+<!--                                    <ul class="dropdown-menu">-->
+<!--                                        <li @click="viewItem(item)"><a class="dropdown-item" href="#">-->
+<!--                                            <span><i class="fa-regular fa-eye text-primary"></i></span>-->
+<!--                                            <span class="pl-2">View</span>-->
+<!--                                        </a></li>-->
+<!--                                        <li @click="editItem(item)"><a class="dropdown-item" href="#">-->
+<!--                                            <span><i class="fa-regular fa-pen-to-square text-warning"></i></span>-->
+<!--                                            <span class="pl-2">Edit</span>-->
+<!--                                        </a></li>-->
+<!--                                        <li @click="activeItem(item)"><a class="dropdown-item" href="#">-->
+<!--                                            <span><i class="fa-solid fa-circle-check text-success"></i></span>-->
+<!--                                            <span class="pl-2">Active</span>-->
+<!--                                        </a></li>-->
+<!--                                        <li @click="removeItem(item)"><a class="dropdown-item" href="#">-->
+<!--                                            <span><i class="fa-solid fa-trash-can text-danger"></i></span>-->
+<!--                                            <span class="pl-2">Delete</span>-->
+<!--                                        </a></li>-->
+<!--                                        &lt;!&ndash;                                        <li>&ndash;&gt;-->
+<!--                                        &lt;!&ndash;                                            <hr class="dropdown-divider">&ndash;&gt;-->
+<!--                                        &lt;!&ndash;                                        </li>&ndash;&gt;-->
+<!--                                        &lt;!&ndash;                                        <li><a class="dropdown-item" href="#">Separated link</a></li>&ndash;&gt;-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                    <vee_pagination @page-changed="handlePageChange" :pagesCount="list.last_page"></vee_pagination>-->
                 </div>
             </div>
 
@@ -107,7 +94,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Create new question</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Create new question packages</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -298,13 +285,15 @@ export default {
     data: function () {
         return {
             item_edit: {
-                content: '',
+                name: '',
                 type_question: '',
                 level: null,
                 category: null,
                 time: 0,
+                tested: 0,
+                number_question: 0,
                 status: 'inactive',
-                answer: [],
+                test_interface: '',
                 created_by: '',
                 updated_by: '',
             },

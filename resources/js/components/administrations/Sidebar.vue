@@ -7,7 +7,7 @@
             <sidebar-item></sidebar-item>
             <h4 class="side_title pt-4 pb-1">Packages management</h4>
             <sidebar-item :link="'administration.packages_management.list_question'" :text="'List question'" :icon="'fa-solid fa-circle-question'"></sidebar-item>
-            <sidebar-item :text="'List packages'" :icon="'fa-solid fa-cube'"></sidebar-item>
+            <sidebar-item :link="'administration.packages_management.question_package'" :text="'List packages'" :icon="'fa-solid fa-cube'"></sidebar-item>
             <h4 class="side_title pt-4 pb-1">Account Management</h4>
             <sidebar-item :text="'List user'" :icon="'fa-solid fa-circle-question'"></sidebar-item>
             <sidebar-item :text="'List admin'" :icon="'fa-solid fa-cube'"></sidebar-item>

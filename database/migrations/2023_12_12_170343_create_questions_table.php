@@ -19,6 +19,8 @@ return new class extends Migration
             $table->json('answer',)->nullable();
             $table->double('time',)->nullable();
             $table->string('type_question',)->nullable();
+            $table->string('created_by',)->nullable();
+            $table->string('updated_by',)->nullable();
             $table->string('status',)->nullable();
             $table->double('level',)->nullable();
             $table->double('category',)->nullable();

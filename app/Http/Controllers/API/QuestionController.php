@@ -36,7 +36,7 @@ class QuestionController extends Controller
     // Tạo mới một câu hỏi
     public function store(Request $request)
     {
-        $question = new Question($request->only('content', 'type_question', 'answer', 'category', 'level', 'status', 'time'));
+        $question = new Question($request->only('content', 'type_question', 'answer', 'category', 'level', 'status', 'time','created_by', 'updated_by'));
 
         if ($request->has('image_question')) {
             $image = $request->input('image_question');
@@ -61,14 +61,12 @@ class QuestionController extends Controller
             return response()->json(['message' => 'Question not found'], 404);
         }
         // Xóa hình cũ nếu có
-
         if ($request->has('image_question')) {
             $imagePath = public_path($question->image_question);
             if (File::exists($imagePath)) {
                 File::delete($imagePath);
                 // Kiểm tra xem tệp tin đã bị xóa thành công hay không
                 if (!File::exists($imagePath)) {
-//                    dd('File deleted successfully');
                     $image = $request->input('image_question');
                     list(, $image) = explode(',', $image);
                     $image = base64_decode($image);
@@ -77,7 +75,6 @@ class QuestionController extends Controller
                     file_put_contents(public_path('questions/' . $imageName), $image);
                     $question->image_question = '/questions/' . $imageName;
                 } else {
-//                    dd('File deletion failed');
                 }
             } else {
                 $image = $request->input('image_question');
@@ -89,8 +86,6 @@ class QuestionController extends Controller
                 $question->image_question = '/questions/' . $imageName;
             }
         }
-
-
         $question->content = $request->input('content');
         $question->options = $request->input('options');
         $question->answer = $request->input('answer');
@@ -99,11 +94,11 @@ class QuestionController extends Controller
         $question->status = $request->input('status');
         $question->level = $request->input('level');
         $question->category = $request->input('category');
+        $question->created_by = $request->input('created_by');
+        $question->updated_by = $request->input('updated_by');
         $question->update();
 
         return response()->json(['message' => 'Question updated successfully'], 201);
-
-
         // Code cập nhật thông tin của câu hỏi đã được cung cấp ở ví dụ trước
     }
 
@@ -114,13 +109,22 @@ class QuestionController extends Controller
         if (!$question) {
             return response()->json(['message' => 'Question not found'], 404);
         }
-
         if ($question->image_question) {
-            Storage::delete('public/images/' . $question->image_question);
+            $imagePath = public_path($question->image_question);
+            File::delete($imagePath);
         }
-
         $question->delete();
         return response()->json(['message' => 'Question deleted successfully'], 200);
     }
+    public function active($id)
+    {
 
+        $question = Question::find($id);
+        if (!$question) {
+            return response()->json(['message' => 'Question not found'], 404);
+        }
+        $question->status = 'active';
+        $question->update();
+        return response()->json(['message' => 'Question update successfully'], 200);
+    }
 }

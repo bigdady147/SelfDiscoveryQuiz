@@ -19,5 +19,7 @@ class Question extends Model
         'status',
         'level', // Cấp độ của câu hỏi từ 1 => 3
         'category',
+        'update_by',
+        'created_by',
     ];
 }
