@@ -129,3 +129,31 @@ h6, .h6{
     color: unset !important;
     text-decoration: none !important; /* Loại bỏ gạch chân khi link được kích hoạt */
 }
+.select2 {
+
+    .select2-selection--single {
+        height: auto !important;
+        border: none;
+        width: 100%;
+    }
+
+    .select2-selection__rendered {
+        line-height: 1.5 !important;
+        font-weight: normal;
+        padding-left: 2px;
+    }
+
+    .select2-selection__placeholder {
+        font-weight: normal;
+        color: currentColor;
+    }
+
+    .select2-selection__arrow {
+        height: 15px !important
+    }
+
+    .select2-selection__clear {
+        height: auto !important;
+    }
+
+}

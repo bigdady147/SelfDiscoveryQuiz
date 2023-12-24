@@ -13,6 +13,7 @@ export default {
     'vee_input_number' : defineAsyncComponent(()=> import('./form/VeeInputNumber.vue')),
     'vee_select' : defineAsyncComponent(()=> import('./form/VeeSelect.vue')),
     'vee_pagination' : defineAsyncComponent(()=> import('./form/VeePagination.vue')),
+    'vee_multiple_select' : defineAsyncComponent(()=> import('./form/VeeMultipleSelect.vue')),
 
     //Base (input, input number, select, select2)
     'toast' : defineAsyncComponent(()=> import('./base/Toast.vue')),

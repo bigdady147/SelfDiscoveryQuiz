@@ -47,3 +47,37 @@
 .fs-label{
     font-size: 12px ;
 }
+.box-table-modal{
+    th{
+        font-size: 12px;
+    }
+    td{
+        font-size: 12px;
+    }
+    button{
+        span{
+            font-size: 12px;
+        }
+    }
+
+}
+.pagination{
+    .page-item{
+        cursor: pointer;
+        .page-link{
+            padding: 4px 10px;
+            font-size: 12px;
+        }
+    }
+}
+.txt-md{
+    font-weight: 500;
+    font-size: 12px;
+}
+.txt-sm{
+    font-weight: 400;
+    font-size: 10px;
+}
+.box-selected-question{
+    padding: 10px 0px;
+}

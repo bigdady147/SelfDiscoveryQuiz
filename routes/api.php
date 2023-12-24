@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\QuestionController;
+use App\Http\Controllers\Api\QuestionPackagesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,4 +35,13 @@ Route::middleware('auth:api')->group(function () {
     Route::put('questions/{id}', [QuestionController::class, 'update']);
     Route::delete('questions/{id}', [QuestionController::class, 'destroy']);
     Route::put('questions/{id}/active', [QuestionController::class, 'active']);
+});
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('question-packages', [QuestionPackagesController::class, 'index']);
+    Route::get('question-packages/{id}', [QuestionPackagesController::class, 'show']);
+    Route::post('question-packages', [QuestionPackagesController::class, 'store']);
+    Route::put('question-packages/{id}', [QuestionPackagesController::class, 'update']);
+    Route::delete('question-packages/{id}', [QuestionPackagesController::class, 'destroy']);
+    Route::put('question-packages/{id}/active', [QuestionPackagesController::class, 'active']);
 });

@@ -1,10 +1,11 @@
 import('./bootstrap.js');
 import './bootstrap';
+import './jQuery';
+
 import moment from 'moment';
 import * as _ from 'lodash';
 import axios from 'axios';
 import $ from 'jquery';
-
 // window.jQuery = window.$ = $;
 import Vue3Toastify from 'vue3-toastify';
 import 'animate.css'
@@ -14,7 +15,8 @@ import VueFullpage from 'vue-fullpage'
 window.moment = moment;
 window._ = _;
 window.axios = axios;
-window.$ = $;
+window.jQuery = window.$ = $;
+
 
 
 //Import & use Libary
@@ -34,7 +36,6 @@ app.use(router);
 app.use(VueFullpage);
 //config components
 import {component} from "./components";
-
 _.map(component, function (v, i) {
     app.component(i, v);
 });
