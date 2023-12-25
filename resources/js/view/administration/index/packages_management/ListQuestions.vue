@@ -480,7 +480,7 @@ export default {
                         val.answer = JSON.parse(val.answer);
                     })
                 }).catch(error => {
-                toast.error(error, {autoClose: 1500});
+                toast.error(error.message, {autoClose: 1500});
             })
         },
         clearData() {
@@ -524,7 +524,7 @@ export default {
                     vm.loadList();
                     vm.clearData();
                 }).catch(error => {
-                toast.error(error, {autoClose: 1000});
+                toast.error(error.message, {autoClose: 1000});
             })
         },
         removeItem(item){
@@ -535,7 +535,7 @@ export default {
                     vm.loadList();
                     vm.clearData();
                 }).catch(error => {
-                toast.error(error, {autoClose: 1000});
+                toast.error(error.message, {autoClose: 1000});
             })
         },
         activeItem(item){
@@ -546,7 +546,7 @@ export default {
                     vm.loadList();
                     vm.clearData();
                 }).catch(error => {
-                toast.error(error, {autoClose: 1000});
+                toast.error(error.message, {autoClose: 1000});
             })
         },
         saveEditItem() {
@@ -565,7 +565,7 @@ export default {
                     vm.loadList();
                     vm.clearData();
                 }).catch(error => {
-                toast.error(error, {autoClose: 1000});
+                toast.error(error.message, {autoClose: 1000});
             })
         },
 
