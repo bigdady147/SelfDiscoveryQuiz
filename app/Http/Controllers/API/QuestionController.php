@@ -19,7 +19,9 @@ class QuestionController extends Controller
     {
         $perPage = $request->input('per_page', 1);
         $page = $request->input('page', 1);
-        $questions = Question::paginate($perPage, ['*'], 'page', $page);
+        $order = $request->input('order', 'desc');
+
+        $questions = Question::orderBy('created_at', $order)->paginate($perPage, ['*'], 'page', $page);
         return response()->json($questions, 200);
     }
 

@@ -19,7 +19,8 @@ class QuestionPackagesController extends Controller
     {
         $perPage = $request->input('per_page', 1);
         $page = $request->input('page', 1);
-        $question_packages = QuestionPackage::paginate($perPage, ['*'], 'page', $page);
+        $order = $request->input('order', 'desc');
+        $question_packages = QuestionPackage::orderBy('created_at', $order)->paginate($perPage, ['*'], 'page', $page);
         return response()->json($question_packages, 200);
     }
 
@@ -62,6 +63,7 @@ class QuestionPackagesController extends Controller
         if ($request->has('image_packages')) {
             $imagePath = public_path($question->image_packages);
             if (File::exists($imagePath)) {
+
                 File::delete($imagePath);
                 // Kiểm tra xem tệp tin đã bị xóa thành công hay không
                 if (!File::exists($imagePath)) {
@@ -73,8 +75,16 @@ class QuestionPackagesController extends Controller
                     file_put_contents(public_path('questions/' . $imageName), $image);
                     $question->image_packages = '/questions/' . $imageName;
                 } else {
+                    $image = $request->input('image_packages');
+                    list(, $image) = explode(',', $image);
+                    $image = base64_decode($image);
+                    $extension = explode('/', explode(':', substr($request->input('image_packages'), 0, strpos($request->input('image_packages'), ';')))[1])[1];
+                    $imageName = uniqid() . '.' . $extension;
+                    file_put_contents(public_path('questions/' . $imageName), $image);
+                    $question->image_packages = '/questions/' . $imageName;
                 }
             } else {
+
                 $image = $request->input('image_packages');
                 list(, $image) = explode(',', $image);
                 $image = base64_decode($image);
@@ -84,16 +94,15 @@ class QuestionPackagesController extends Controller
                 $question->image_packages = '/questions/' . $imageName;
             }
         }
-        $question->content = $request->input('name');
-        $question->options = $request->input('test_interface');
-        $question->answer = $request->input('answer');
-        $question->time = $request->input('question_ids');
-        $question->type_question = $request->input('tested');
-        $question->status = $request->input('number_question');
+        $question->name = $request->input('name');
+        $question->test_interface = $request->input('test_interface');
+        $question->question_ids = $request->input('question_ids');
+        $question->tested = $request->input('tested');
+        $question->number_question = $request->input('number_question');
         $question->level = $request->input('level');
         $question->category = $request->input('category');
-        $question->category = $request->input('status');
-        $question->category = $request->input('time');
+        $question->status = $request->input('status');
+        $question->time = $request->input('time');
         $question->created_by = $request->input('created_by');
         $question->updated_by = $request->input('updated_by');
         $question->update();

@@ -1,6 +1,7 @@
 <template>
     <main id="main">
         <slot name="HeaderMain"></slot>
+        <slot name="loading"></slot>
         <div>
             <slot name="BodyMain"></slot>
         </div>

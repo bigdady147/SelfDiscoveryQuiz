@@ -209,10 +209,26 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12 mb-2">
-                                    <label class="fw-medium mb-1 fs-label">Question name</label>
-                                    <vee-input type="text" v-model="item_edit.content"></vee-input>
+                                    <label class="fw-medium mb-1 fs-label">Packages name</label>
+                                    <vee-input type="text" v-model="item_edit.name"></vee-input>
                                 </div>
-
+                                <div class="col-md-4">
+                                    <label class="fw-medium mb-1 fs-label">Image</label>
+<!--                                    <div>-->
+<!--                                        <input type="file" ref="fileInput" @change="handleFileUpload">-->
+<!--                                    </div>-->
+                                    <div>
+                                        <input type="file" id="files" ref="fileInput" @change="handleFileUpload"
+                                               style="display: none">
+                                        <label for="files">
+                                            <p class="btn-sm btn btn-primary" type="button"
+                                               v-text="truncateString(_.get(item_edit,'image_packages', 'Choose file'), 20)"></p>
+                                        </label>
+                                    </div>
+<!--                                    <div class="img">-->
+<!--                                        <img style="max-width: 60%" :src="item_edit.image_packages" alt="">-->
+<!--                                    </div>-->
+                                </div>
                                 <div class="col-md-4 mb-2 ">
                                     <label class="fw-medium mb-1 fs-label">List Category</label>
                                     <select v-model="item_edit.category" class="form-control form-control-sm w-100px"
@@ -228,36 +244,21 @@
                                             name="" id="">
                                         <option v-for="(type, typei) in levels" :key="typei + 'type'"
                                                 :value="type.value" v-text="_.get(type,'text','')"></option>
-
                                     </select>
                                 </div>
                                 <div class="fw-medium col-md-4 mb-3">
-                                    <label class="fw-medium mb-1 fs-label">Time (second)</label>
+                                    <label class="fw-medium mb-1 fs-label">Time packages (second)</label>
                                     <vee-input-number type="text" v-model.number="item_edit.time"></vee-input-number>
-
                                 </div>
                                 <div class="col-md-4 mb-2 ">
-                                    <label class="fw-medium mb-1 fs-label">Type</label>
-                                    <select v-model="item_edit.type_question"
-                                            class="form-control form-control-sm w-100px" name="" id="">
-                                        <option v-for="(type, typei) in type_questions" :key="typei + 'type'"
+                                    <label class="fw-medium mb-1 fs-label">Test interface</label>
+                                    <select v-model="item_edit.test_interface"
+                                            class="form-control form-control-sm w-100px"
+                                            name="" id="">
+                                        <option v-for="(type, typei) in interfaces" :key="typei + 'type'"
                                                 :value="type.value" v-text="_.get(type,'text','')"></option>
 
                                     </select>
-                                </div>
-                                <div v-if="item_edit.type_question == 'image' " class="col-md-4">
-                                    <label class="fw-medium mb-1 fs-label">Image</label>
-                                    <div>
-                                        <input type="file" id="files" ref="fileInput" @change="handleFileUpload"
-                                               style="display: none">
-                                        <label for="files">
-                                            <p class="btn-sm btn btn-primary" type="button"
-                                               v-text="truncateString(_.get(item_edit,'image_question', 'Choose file'), 20)"></p>
-                                        </label>
-                                    </div>
-                                    <div class="img">
-                                        <img style="max-width: 60%" :src="item_edit.image_question" alt="">
-                                    </div>
                                 </div>
                                 <hr>
                                 <hr>
@@ -426,12 +427,15 @@ export default {
                 page: 1,
                 per_page: 10,
                 last_page: 0,
+                order: 'desc',
+
             },
             list_questions: {
                 data: [],
                 page: 1,
                 per_page: 10,
                 last_page: 0,
+                order: 'desc',
             },
             customFileText: 'Choose file',
             fileInputData: null,
@@ -480,9 +484,6 @@ export default {
                     val.selected = true;
                 }
             });
-
-            // console.log('2323', vm.list_questions.data)
-
             vm.item_edit.updated_by = vm.user.name;
             let myModal = new bootstrap.Modal(document.getElementById('modalView'));
             myModal.show();
@@ -609,7 +610,7 @@ export default {
         },
         removeItem(item) {
             let vm = this;
-            axios.delete(`/api/questions/${item.id}`, vm.header_token)
+            axios.delete(`/api/question-packages/${item.id}`, vm.header_token)
                 .then(response => {
                     toast.success(response.data.message, {autoClose: 1500});
                     vm.loadList();
@@ -620,7 +621,7 @@ export default {
         },
         activeItem(item) {
             let vm = this;
-            axios.put(`/api/questions/${item.id}/active`, item, vm.header_token)
+            axios.put(`/api/question-packages/${item.id}/active`, item, vm.header_token)
                 .then(response => {
                     toast.success(response.data.message, {autoClose: 1500});
                     vm.loadList();
@@ -636,7 +637,7 @@ export default {
             } else {
                 vm.item_edit.answer = null;
             }
-            axios.put(`/api/questions/${vm.item_edit.id}`, vm.item_edit, vm.header_token)
+            axios.put(`/api/question-packages/${vm.item_edit.id}`, vm.item_edit, vm.header_token)
                 .then(response => {
                     toast.success(response.data.message, {autoClose: 1500});
                     let myModalEl = document.getElementById('modalView');

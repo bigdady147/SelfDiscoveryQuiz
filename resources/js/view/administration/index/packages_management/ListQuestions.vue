@@ -374,6 +374,7 @@ export default {
                 page: 1,
                 per_page: 10,
                 last_page: 0,
+                order: 'desc',
             },
             customFileText: 'Choose file',
             fileInputData: null,
