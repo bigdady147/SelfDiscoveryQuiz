@@ -24,12 +24,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
+    Route::get('profile', 'userProfile');
+    Route::put('profile/{id}', 'updateProfile');
 });
 
 
 //API Question
 Route::middleware('auth:api')->group(function () {
     Route::get('questions', [QuestionController::class, 'index']);
+    Route::get('questions-ids', [QuestionController::class, 'getListQuestion']);
     Route::get('questions/{id}', [QuestionController::class, 'show']);
     Route::post('questions', [QuestionController::class, 'store']);
     Route::put('questions/{id}', [QuestionController::class, 'update']);

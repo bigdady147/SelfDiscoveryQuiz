@@ -1,7 +1,7 @@
 <template>
     <LayoutMaster>
         <template #HeaderMain>
-            <HeaderMain></HeaderMain>
+            <HeaderV2></HeaderV2>
         </template>
         <template #loading>
             <page_loading v-if="loading"></page_loading>
@@ -43,18 +43,18 @@
                             <span class="icon">
                                 <i class="fas fa-question-circle"></i>
                             </span>
-                            <span v-text="packages.question_ids.length + ' questions'" class="text"></span>
+                            <span v-text="packages.number_question + ' questions'" class="text"></span>
                         </div>
                         <div class="more-item">
                             <span class="icon">
                               <i class="fas fa-sort-numeric-up"></i>
                             </span>
-                            <span v-text="'Tested: ' + packages.question_ids.length " class="text"></span>
+                            <span v-text="'Tested: ' + packages.tested " class="text"></span>
                         </div>
                     </div>
                     <hr>
                     <div class="action">
-                        <button type="button" class="btn btn-sm btn-testing">Test now</button>
+                        <button @click="testing()" type="button" class="btn btn-sm btn-testing">Test now</button>
                     </div>
                 </div>
             </section>
@@ -63,7 +63,7 @@
 </template>
 <script setup>
 import LayoutMaster from '../_layouts/Master.vue';
-import HeaderMain from '../_partials/Header.vue';
+import HeaderV2 from '../_partials/Header_v2.vue';
 import * as _ from "lodash";
 
 </script>
@@ -159,7 +159,10 @@ export default {
         let user = localStorage.getItem("user");
         let token = JSON.parse(user).data.access_token;
         vm._id = this.$route.params.id
+
+
         vm.user = JSON.parse(user).data.user;
+
         vm.header_token = {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -183,6 +186,11 @@ export default {
                 }).catch(error => {
                 toast.error(error.message, {autoClose: 1500});
             })
+        },
+        testing(){
+          let vm = this;
+
+          this.$router.push({ name: 'default.index', query: { user_id: vm.user.id , packages_id: vm._id } });
         },
         getTime(val) {
             let vm = this;

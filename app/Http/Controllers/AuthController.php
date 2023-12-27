@@ -130,4 +130,16 @@ class AuthController extends Controller
             'user' => $user,
         ], 201);
     }
+
+    public function updateProfile(Request $request, $id){
+        $user = User::find($id);
+        $user->address = $request->input('address');
+        $user->phone = $request->input('phone');
+        $user->update();
+        return response()->json([
+            'message' => 'User update successfull',
+            'user' => $user,
+        ], 201);
+    }
+
 }

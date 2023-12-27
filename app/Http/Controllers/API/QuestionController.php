@@ -24,7 +24,12 @@ class QuestionController extends Controller
         $questions = Question::orderBy('created_at', $order)->paginate($perPage, ['*'], 'page', $page);
         return response()->json($questions, 200);
     }
-
+    public function getListQuestion(Request $request)
+    {
+        $ids = $request->input('ids');
+        $questions = Question::orderBy('created_at', 'desc')->whereIn('id', json_decode($ids))->get();
+        return response()->json($questions, 200);
+    }
     // Lấy thông tin của một câu hỏi cụ thể
     public function show($id)
     {
