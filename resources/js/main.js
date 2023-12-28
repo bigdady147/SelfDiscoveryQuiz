@@ -12,6 +12,12 @@ import 'animate.css'
 import 'vue-fullpage/vue-fullpage.css'
 import VueFullpage from 'vue-fullpage'
 
+import OpenAI from 'openai';
+const openai = new OpenAI({
+    apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+});
+
+
 window.moment = moment;
 window._ = _;
 window.axios = axios;
@@ -34,6 +40,7 @@ const app = createApp(App)
 import router from './router';
 app.use(router);
 app.use(VueFullpage);
+app.use(openai);
 //config components
 import {component} from "./components";
 _.map(component, function (v, i) {
