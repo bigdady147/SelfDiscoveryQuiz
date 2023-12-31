@@ -14,7 +14,8 @@ import VueFullpage from 'vue-fullpage'
 
 import OpenAI from 'openai';
 const openai = new OpenAI({
-    apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+    apiKey: "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", // This is the default and can be omitted
+    dangerouslyAllowBrowser: true
 });
 
 
