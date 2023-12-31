@@ -19,7 +19,7 @@ class ReportController extends Controller
         $perPage = $request->input('per_page', 1);
         $page = $request->input('page', 1);
         $order = $request->input('order', 'desc');
-        $report = Report::orderBy('created_at', $order)->paginate($perPage, ['*'], 'page', $page);
+        $report = Report::with('questionPackage', 'user')->orderBy('created_at', $order)->paginate($perPage, ['*'], 'page', $page);
         return response()->json($report, 200);
     }
 
@@ -50,7 +50,7 @@ class ReportController extends Controller
     public function show($id)
     {
         //
-        $report = Report::find($id);
+        $report = Report::with('questionPackage', 'user')->find($id);
         if (!$report) {
             return response()->json(['message' => 'Report not found'], 404);
         }

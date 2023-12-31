@@ -247,7 +247,8 @@ export default {
             report_router: {
                 user_id : '',
                 report_id: '',
-            }
+            },
+            header_token : {},
         };
     },
 

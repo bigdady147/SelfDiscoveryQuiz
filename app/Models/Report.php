@@ -18,4 +18,15 @@ class Report extends Model
         'user_id',
 
     ];
+
+    public function questionPackage()
+    {
+        return $this->belongsTo(QuestionPackage::class, 'question_package_id');
+    }
+
+    // Quan hệ n-1 với User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
