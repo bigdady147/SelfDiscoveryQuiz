@@ -18,7 +18,6 @@ const openai = new OpenAI({
     dangerouslyAllowBrowser: true
 });
 
-
 window.moment = moment;
 window._ = _;
 window.axios = axios;
@@ -41,7 +40,7 @@ const app = createApp(App)
 import router from './router';
 app.use(router);
 app.use(VueFullpage);
-app.use(openai);
+// app.use(OpenAI);
 //config components
 import {component} from "./components";
 _.map(component, function (v, i) {

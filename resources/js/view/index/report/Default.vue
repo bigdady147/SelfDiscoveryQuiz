@@ -202,18 +202,18 @@ export default {
             is_testing: false,
             item_edit: {
                 score: 0,
-                question_package_id : '',
-                list_questions : [],
-                evaluate : '',
-                propose : '',
-                user_id : '',
+                question_package_id: '',
+                list_questions: [],
+                evaluate: '',
+                propose: '',
+                user_id: '',
             },
             list_questions: {
                 data: []
             },
             current_index: 0,
             flg_save: false,
-            question_answer_str : ""
+            question_answer_str: ""
         };
     },
 
@@ -231,7 +231,6 @@ export default {
             }
         };
         vm.loadPackages();
-
     },
     mounted() {
         this.getUser();
@@ -281,7 +280,7 @@ export default {
                 dangerouslyAllowBrowser: true
             });
 
-            async function main() {
+            async function restfultAPIOpenAI () {
                 const stream = await openai.chat.completions.create({
                     model: 'gpt-3.5-turbo',
                     messages: [{role: 'user', content: question}],
@@ -291,7 +290,7 @@ export default {
             }
 
             let result = "";
-            result = await main();
+            result = await restfultAPIOpenAI ();
             return result;
         },
         startAndUpdateUser() {
@@ -347,15 +346,17 @@ export default {
                 evaluate = `Dựa vào bài trắc nghiệm ${vm.packages.name} Dựa vào các câu hỏi, các câu trả lời tương ứng, ${this.question_answer_str} thì hãy cho tôi  ${vm.packages.name} nào tương ứng với câu hỏi và câu trả lời trên, phân tích chi tiết, tại sao tôi lại phù hợp với ngành nghề đó ?`
                 let propose = "";
                 propose = `Dựa vào bài trắc nghiệm ${vm.packages.name} Dựa vào các câu hỏi, các câu trả lời tương ứng, ${this.question_answer_str} thì hãy cho tôi  ${vm.packages.name} nào tương ứng với câu hỏi và câu trả lời trên, phân tích chi tiết, cho tôi đề xuất cải thiện bản thân để bản thân có thể phát triển hơn ?`
-
                 vm.loading = true;
                 vm.item_edit.evaluate = await vm.requestOpenAI(evaluate);
                 vm.item_edit.propose = await vm.requestOpenAI(propose);
+                await axios.post(`/api/report`, vm.item_edit)
+                    .then(response => {
+                        console.log('response', response);
+                        vm.loading = false;
 
-
-
-
-                vm.loading = false;
+                    }).catch(error => {
+                        toast.error(error.message, {autoClose: 1500});
+                    })
 
             } else {
                 text = "Canceled!";
@@ -366,18 +367,18 @@ export default {
         'list_questions.data': {
             deep: true,
             handler: function (val) {
-                let arr_result  = [];
+                let arr_result = [];
                 _.map(this.list_questions.data, (val) => {
                     let count = 0;
-                      this.question_answer_str = "";
-                        if (val.answer_selected_id !== "") {
-                            _.map(val.answer, (ans) => {
-                                if(val.answer_selected_id == ans.id){
-                                     arr_result.push(`Với câu hỏi ${val.content} tôi chọn đáp án là ${ans.text}`);
-                                }
-                            })
-                            count++;
-                        }
+                    this.question_answer_str = "";
+                    if (val.answer_selected_id !== "") {
+                        _.map(val.answer, (ans) => {
+                            if (val.answer_selected_id == ans.id) {
+                                arr_result.push(`Với câu hỏi ${val.content} tôi chọn đáp án là ${ans.text}`);
+                            }
+                        })
+                        count++;
+                    }
                     this.question_answer_str = arr_result.join(" ");
                     if (count == _.size(this.list_questions.data)) {
                         this.flg_save = true;

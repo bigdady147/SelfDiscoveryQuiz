@@ -9,7 +9,7 @@ class Report extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'score', // Tên câu hỏi
+        'score', //điểm
         'question_package_id',
         'list_questions',
         'evaluate', // đánh giá cá nhân

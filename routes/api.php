@@ -4,7 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\QuestionController;
+use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\QuestionPackagesController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -47,4 +49,12 @@ Route::middleware('auth:api')->group(function () {
     Route::put('question-packages/{id}', [QuestionPackagesController::class, 'update']);
     Route::delete('question-packages/{id}', [QuestionPackagesController::class, 'destroy']);
     Route::put('question-packages/{id}/active', [QuestionPackagesController::class, 'active']);
+});
+
+Route::controller(ReportController::class)->group(function () {
+    Route::get('report', 'index');
+    Route::get('report/{id}', 'show');
+    Route::post('report', 'store');
+    Route::put('report/{id}', 'update');
+    Route::delete('report/{id}', 'destroy');
 });
