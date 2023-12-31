@@ -202,6 +202,7 @@ export default {
             is_testing: false,
             item_edit: {
                 score: 0,
+                time_test: 0,
                 question_package_id : '',
                 list_questions : [],
                 evaluate : '',
@@ -213,7 +214,8 @@ export default {
             },
             current_index: 0,
             flg_save: false,
-            question_answer_str : ""
+            question_answer_str : "",
+            secret_key : "",
         };
     },
 
@@ -235,6 +237,8 @@ export default {
     },
     mounted() {
         this.getUser();
+        this.secret_key =  import.meta.env.VITE_OPENAI_API_KEY;
+
     },
     computed: {},
     methods: {
@@ -277,10 +281,9 @@ export default {
         async requestOpenAI(question) {
             let vm = this;
             const openai = new OpenAI({
-                apiKey: "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", // This is the default and can be omitted
+                apiKey: vm.secret_key, // This is the default and can be omitted
                 dangerouslyAllowBrowser: true
             });
-
             async function main() {
                 const stream = await openai.chat.completions.create({
                     model: 'gpt-3.5-turbo',
@@ -351,8 +354,13 @@ export default {
                 vm.loading = true;
                 vm.item_edit.evaluate = await vm.requestOpenAI(evaluate);
                 vm.item_edit.propose = await vm.requestOpenAI(propose);
-
-
+                axios.post(`/api/report`, vm.item_edit)
+                    .then(response => {
+                        vm.loading = false;
+                        console.log('response', response)
+                    }).catch(error => {
+                    toast.error(error.message, {autoClose: 1500});
+                })
 
 
                 vm.loading = false;

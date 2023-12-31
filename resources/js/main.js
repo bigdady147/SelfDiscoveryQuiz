@@ -24,7 +24,6 @@ window.axios = axios;
 window.jQuery = window.$ = $;
 
 
-
 //Import & use Libary
 
 

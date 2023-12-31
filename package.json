@@ -9,7 +9,8 @@
         "@vue/compiler-sfc": "^3.3.11",
         "axios": "^1.6.2",
         "laravel-vite-plugin": "^0.8.0",
-        "vite": "^4.0.0"
+        "vite": "^4.0.0",
+        "vite-plugin-env-compatible": "^2.0.1"
     },
     "dependencies": {
         "@coders-tm/vue-number-format": "^3.34.0",
@@ -17,6 +18,7 @@
         "@vueform/multiselect": "^2.6.6",
         "animate.css": "^4.1.1",
         "bootstrap": "^5.3.2",
+        "dotenv": "^16.3.1",
         "jquery": "^3.7.1",
         "lodash": "^4.17.21",
         "moment": "^2.29.4",

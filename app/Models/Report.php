@@ -11,6 +11,7 @@ class Report extends Model
     protected $fillable = [
         'score', //điểm
         'question_package_id',
+        'time_test',
         'list_questions',
         'evaluate', // đánh giá cá nhân
         'propose', // đề xuất cải thiện

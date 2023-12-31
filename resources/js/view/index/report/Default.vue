@@ -234,6 +234,9 @@ export default {
     },
     mounted() {
         this.getUser();
+        console.log('2222')
+        const mySecret = process.env.OPENAI_API_KEY;
+        console.log(mySecret);
     },
     computed: {},
     methods: {
@@ -276,7 +279,7 @@ export default {
         async requestOpenAI(question) {
             let vm = this;
             const openai = new OpenAI({
-                apiKey: "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", // This is the default and can be omitted
+                apiKey: "", // This is the default and can be omitted
                 dangerouslyAllowBrowser: true
             });
 

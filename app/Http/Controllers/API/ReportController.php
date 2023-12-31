@@ -37,7 +37,7 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        $report = new Report($request->only('score', 'list_questions', 'question_package_id', 'evaluate', 'propose', 'user_id'));
+        $report = new Report($request->only('score', 'list_questions', 'question_package_id', 'evaluate', 'propose', 'user_id','time_test'));
         $report->save();
         return response()->json(['message' => 'Report created successfully'], 201);
     }
@@ -78,6 +78,7 @@ class ReportController extends Controller
             $report->list_questions = $request->input('list_questions');
             $report->evaluate = $request->input('evaluate');
             $report->propose = $request->input('propose');
+            $report->time_test = $request->input('time_test');
             $report->user_id = $request->input('user_id');
 
             $report->update();

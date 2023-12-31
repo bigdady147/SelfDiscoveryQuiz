@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->double('score',)->nullable();
+            $table->double('time_test',)->nullable();
             $table->json('list_questions',)->nullable();
             $table->string('question_package_id',)->nullable();
-            $table->string('evaluate',)->nullable();
-            $table->string('propose',)->nullable();
+            $table->longText('evaluate',)->nullable();
+            $table->longText('propose',)->nullable();
             $table->string('user_id',)->nullable();
             $table->timestamps();
         });
