@@ -1,6 +1,9 @@
 <template>
     <div class="page-loading">
-        <div class="spinner-border m-5" role="status">
+        <div>
+            <slot name="textLoading"></slot>
+        </div>
+        <div class="spinner-border m-5 text-light" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
@@ -30,6 +33,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        background: rgba(255,255,255,0.5);
+        background: rgba(0,0,0,0.9);
+        flex-direction: column;
     }
 </style>

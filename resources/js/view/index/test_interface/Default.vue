@@ -4,11 +4,17 @@
             <HeaderV2></HeaderV2>
         </template>
         <template #loading>
-            <page_loading v-if="loading"></page_loading>
+            <page_loading v-if="loading">
+                <template #textLoading>
+                    <div style="font-size: 22px; font-weight: 600" class="text-center text-light">
+                        Your report is currently being processed. To ensure the most accurate results, please wait for a moment...
+                    </div>
+                </template>
+            </page_loading>
         </template>
         <template #BodyMain>
             <section class="packages-detail">
-                <div v-show="!is_testing" class="packages-content  form-user">
+                <div v-show="!is_testing && !is_report" class="packages-content  form-user">
                     <h6 class="text-center title">Personal information</h6>
                     <span
                         class="small text-danger sub-title">Please provide personal information to start the test. (*)</span>
@@ -38,7 +44,7 @@
 
                     </div>
                 </div>
-                <div v-show="is_testing" class="packages-content  form-user form-testing">
+                <div v-show="is_testing && !is_report" class="packages-content  form-user form-testing">
                     <div class="block-head">
                         <h6 class="text-center title" v-text="_.get(packages,'name', '')"></h6>
                         <div class="clock">
@@ -93,6 +99,26 @@
                                 Save
                             </button>
                         </div>
+                    </div>
+                </div>
+                <div v-show="is_report" class="packages-content  form-user  form-report">
+<!--                    <h6 class="text-center title">Congratulation</h6>-->
+                    <div class="img pb-5">
+                        <img style="max-width: 60%; display: block; margin: 0 auto" src="../../../../../public/images/main/congrat.png" alt="">
+                    </div>
+                    <p
+                        class="small  sub-title text-center">Sincere thanks for successfully completing the quiz! <br> Your effort and
+                        companionship are significant sources of motivation for us. <br> To view your results and detailed report,
+                        please click on the 'View Report' button below. <br> We hope you are pleased with your outcome.
+                        Keep up the effort and continuous learning! Thank you.</p>
+                    <hr>
+                    <div class="block-action d-flex justify-content-center">
+                        <button class="btn-sm btn btn-testing" @click="viewReport()">
+                            <span>
+                                <i class="fa-solid fa-book-open"></i>
+                            </span>
+                            <span class="ml-2">View report</span>
+                        </button>
                     </div>
                 </div>
             </section>
@@ -216,6 +242,12 @@ export default {
             flg_save: false,
             question_answer_str : "",
             secret_key : "",
+            is_report : false,
+            data_report: null,
+            report_router: {
+                user_id : '',
+                report_id: '',
+            }
         };
     },
 
@@ -339,13 +371,18 @@ export default {
         saveTheTest() {
             let vm = this;
         },
+        viewReport() {
+            let vm = this;
+            this.$router.push({ name: 'report.index', query: { user_id: vm.report_router.user_id , report_id: vm.report_router.report_id } });
+
+        },
         async confirmSaveTheTest() {
             let vm = this;
             let text;
             if (confirm("Are you sure you want to end the exam process? ") == true) {
                 text = "OK!";
                 vm.item_edit.list_questions = JSON.stringify(vm.list_questions.data);
-                vm.item_edit.user = vm.user.id;
+                vm.item_edit.user_id = vm.user.id;
                 let evaluate = "";
                 evaluate = `Dựa vào bài trắc nghiệm ${vm.packages.name} Dựa vào các câu hỏi, các câu trả lời tương ứng, ${this.question_answer_str} thì hãy cho tôi  ${vm.packages.name} nào tương ứng với câu hỏi và câu trả lời trên, phân tích chi tiết, tại sao tôi lại phù hợp với ngành nghề đó ?`
                 let propose = "";
@@ -357,7 +394,12 @@ export default {
                 axios.post(`/api/report`, vm.item_edit)
                     .then(response => {
                         vm.loading = false;
-                        console.log('response', response)
+                        vm.is_report = true; // chuyển hướng sang tab báo cáo
+                        console.log('response', response);
+                        vm.data_report = response.data.data;
+                        vm.report_router.user_id = vm.user.id;
+                        vm.report_router.report_id = vm.data_report.id;
+
                     }).catch(error => {
                     toast.error(error.message, {autoClose: 1500});
                 })

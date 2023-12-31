@@ -39,7 +39,9 @@ class ReportController extends Controller
     {
         $report = new Report($request->only('score', 'list_questions', 'question_package_id', 'evaluate', 'propose', 'user_id','time_test'));
         $report->save();
-        return response()->json(['message' => 'Report created successfully'], 201);
+
+        $newlyCreatedReport = Report::find($report->id);
+        return response()->json(['message' => 'Report created successfully', 'data' => $newlyCreatedReport], 201);
     }
 
     /**

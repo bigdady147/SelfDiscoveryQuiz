@@ -16,5 +16,11 @@ export default  [
         meta: {permission: [], title: 'Default testing'}, children: [],
         query: {user_id: '', packages_id: ''},
         props: true
+    },
+    {
+        path: '/view-report', name: 'report.index', component: () => import('../view/index/report/Index.vue'),
+        meta: {permission: [], title: 'Report'}, children: [],
+        query: {user_id: '', report_id: ''},
+        props: true
     }
 ]
