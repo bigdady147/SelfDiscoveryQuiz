@@ -5,27 +5,22 @@
         <div>
             <slot name="BodyMain"></slot>
         </div>
+        <slot name="FooterMain"></slot>
     </main>
 </template>
 
 <script>
 export default {
-    name: 'LayoutMaster',
+    name: "LayoutMaster",
     data: function () {
         return {};
     },
 
-    created() {
-
-    },
-    async mounted() {
-
-    },
+    created() {},
+    async mounted() {},
     computed: {},
-    methods: {}
-}
+    methods: {},
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
