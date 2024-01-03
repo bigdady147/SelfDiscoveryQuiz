@@ -10,5 +10,9 @@ export default  [
     {
         path: '/administration/packages-management/list-question-package', name: 'administration.packages_management.question_package', component: () => import('../view/administration/index/packages_management/ListQuestionPackage.vue'),
         meta: {permission: [], title: 'List Question package',}, children: [],
+    },
+    {
+        path: '/administration/packages-management/list-report', name: 'administration.packages_management.list_report', component: () => import('../view/administration/index/packages_management/ListReport.vue'),
+        meta: {permission: [], title: 'List Report',}, children: [],
     }
 ]

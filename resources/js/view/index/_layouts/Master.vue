@@ -13,9 +13,10 @@
 export default {
     name: "LayoutMaster",
     data: function () {
-        return {};
+        return {
+            user: {},
+        };
     },
-
     created() {},
     async mounted() {},
     computed: {},

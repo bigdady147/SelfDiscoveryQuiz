@@ -42,15 +42,22 @@ Route::middleware('auth:api')->group(function () {
     Route::put('questions/{id}/active', [QuestionController::class, 'active']);
 });
 
-Route::middleware('auth:api')->group(function () {
-    Route::get('question-packages', [QuestionPackagesController::class, 'index']);
-    Route::get('question-packages/{id}', [QuestionPackagesController::class, 'show']);
-    Route::post('question-packages', [QuestionPackagesController::class, 'store']);
-    Route::put('question-packages/{id}', [QuestionPackagesController::class, 'update']);
-    Route::delete('question-packages/{id}', [QuestionPackagesController::class, 'destroy']);
-    Route::put('question-packages/{id}/active', [QuestionPackagesController::class, 'active']);
+//Route::middleware('auth:api')->group(function () {
+//    Route::get('question-packages', [QuestionPackagesController::class, 'index']);
+//    Route::get('question-packages/{id}', [QuestionPackagesController::class, 'show']);
+//    Route::post('question-packages', [QuestionPackagesController::class, 'store']);
+//    Route::put('question-packages/{id}', [QuestionPackagesController::class, 'update']);
+//    Route::delete('question-packages/{id}', [QuestionPackagesController::class, 'destroy']);
+//    Route::put('question-packages/{id}/active', [QuestionPackagesController::class, 'active']);
+//});
+Route::controller(QuestionPackagesController::class)->group(function () {
+    Route::get('question-packages', 'index');
+    Route::get('question-packages/{id}', 'show');
+    Route::post('question-packages', 'store');
+    Route::put('question-packages/{id}', 'update');
+    Route::delete('question-packages/{id}', 'destroy');
+    Route::put('question-packages/{id}/active', 'active');
 });
-
 Route::controller(ReportController::class)->group(function () {
     Route::get('report', 'index');
     Route::get('report/{id}', 'show');

@@ -255,10 +255,11 @@ export default {
     created() {
         let vm = this;
         let user = localStorage.getItem("user");
+        vm.user = JSON.parse(user).data.user;
+
         let token = JSON.parse(user).data.access_token;
         vm.url_query.packages_id = this.$route.query.packages_id;
         vm.url_query.user_id = this.$route.query.user_id;
-        vm.user = JSON.parse(user).data.user;
         vm.header_token = {
             headers: {
                 'Authorization': `Bearer ${token}`,

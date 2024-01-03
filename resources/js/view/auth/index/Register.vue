@@ -109,7 +109,9 @@ export default {
                         window.location.href = '/login';
                     }, 500)
                 }).catch(error => {
-                    toast.error(error.message, {autoClose: 1000})
+                    toast.error(error.message, {autoClose: 1000});
+                    vm.loading = false;
+
                 })
         }
     },

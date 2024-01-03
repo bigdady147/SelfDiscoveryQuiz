@@ -97,16 +97,20 @@ export default {
                             }
                         }, 500)
                     } else {
+                        vm.loading = false;
+
                         if (response.data.user.role === 'user') {
                             this.$router.push({name: 'dashboard.index'})
                         } else {
                             this.$router.push({name: 'administration.index'})
                         }
+
                     }
                 })
                 .catch(error => {
-                    console.log('err', error);
-                    toast.error(error.message, {autoClose: 1000})
+                    toast.error(error.message, {autoClose: 1000});
+                    vm.loading = false;
+
                 })
         }
     },

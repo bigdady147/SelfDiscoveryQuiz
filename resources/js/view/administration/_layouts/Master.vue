@@ -1,7 +1,7 @@
 <template>
     <main id="main">
         <div class="container-fluid">
-            <div  class="row">
+            <div class="row">
                 <div style="padding-left: 0px; padding-right: 0px" class="col-md-2 sidebar">
                     <administration_sidebar></administration_sidebar>
                 </div>
@@ -27,20 +27,25 @@ export default {
 
     data: function () {
         return {
-
+            user: null
         };
     },
 
     created() {
 
     },
-    async mounted() {
-
+    mounted() {
+        let vm = this;
+        let user = localStorage.getItem("user");
+        vm.user = JSON.parse(user).data.user;
+        if (vm.user.role === 'user') {
+            this.$router.push({name: 'dashboard.index'})
+        } else if (vm.user.role === 'user') {
+            this.$router.push({name: 'administration.index'})
+        }
     },
-    computed: {
-    },
-    methods: {
-    }
+    computed: {},
+    methods: {}
 }
 </script>
 
