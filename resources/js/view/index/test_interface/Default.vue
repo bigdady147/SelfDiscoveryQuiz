@@ -337,8 +337,6 @@ export default {
                     toast.success(response.data.message, {autoClose: 1500});
                     vm.is_testing = true;
                     vm.countdown();
-
-
                 }).catch(error => {
                 toast.error(error.message, {autoClose: 1500});
             })
