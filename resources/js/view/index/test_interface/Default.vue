@@ -331,6 +331,7 @@ export default {
             result = await main();
             return result;
         },
+
         startAndUpdateUser() {
             let vm = this;
             axios.put(`/api/profile/${vm.item_user.id}`, vm.item_user, vm.header_token)

@@ -37,9 +37,12 @@
                                         <label class="mb-1">Password</label>
                                         <vee-input type="password" v-model="item_edit.password"></vee-input>
                                     </div>
-                                    <div class="col-md-12 d-flex justify-content-center pt-3">
+                                    <div style="gap: 20px" class="col-md-12 d-flex justify-content-center pt-3">
+                                        <button type="button" @click="registerFunc()"
+                                                class="button-small btn-primary bg-primary text-light w-50  btn-submit-auth">Register
+                                        </button>
                                         <button type="button" @click="submitLogin"
-                                                class="button-small btn-primary bg-primary text-light w-50">Sign in
+                                                class="button-small btn-primary bg-primary  text-light w-50 btn-submit-auth">Sign in
                                         </button>
                                     </div>
                                 </div>
@@ -79,6 +82,9 @@ export default {
     },
     computed: {},
     methods: {
+        registerFunc(){
+            this.$router.push({name: 'register.index'})
+        },
         submitLogin() {
             let vm = this;
             vm.loading = true;

@@ -151,18 +151,18 @@
                 <div class="package-test container-fluid pb-5">
                     <div class="title text-center fw-bold fs-1 mb-3">Popular tests</div>
                     <div class="test-list row">
-                        <div class="col-3 mt-2">
+                        <div v-for="(item, index) in list_packages.data" class="col-3 mt-2">
                             <TestCard :item="item"></TestCard>
                         </div>
-                        <div class="col-3 mt-2">
-                            <TestCard :item="item"></TestCard>
-                        </div>
-                        <div class="col-3 mt-2">
-                            <TestCard :item="item"></TestCard>
-                        </div>
-                        <div class="col-3 mt-2">
-                            <TestCard :item="item"></TestCard>
-                        </div>
+<!--                        <div class="col-3 mt-2">-->
+<!--                            <TestCard :item="item"></TestCard>-->
+<!--                        </div>-->
+<!--                        <div class="col-3 mt-2">-->
+<!--                            <TestCard :item="item"></TestCard>-->
+<!--                        </div>-->
+<!--                        <div class="col-3 mt-2">-->
+<!--                            <TestCard :item="item"></TestCard>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </section>
@@ -229,6 +229,7 @@ export default {
                     _.map(vm.list_packages.data, (val) => {
                         val.question_ids = JSON.parse(val.question_ids);
                     });
+                    console.log(vm.list_packages)
                 }).catch(error => {
                 toast.error(error.message, {autoClose: 1500});
             })

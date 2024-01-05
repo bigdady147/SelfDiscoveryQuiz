@@ -36,13 +36,13 @@
                             <div class="body-content pb-5">
                                 <div class="body-content-item">
                                     <h3 class="title">I. ĐÁNH GIÁ PHÂN TÍCH</h3>
-                                    <p class="text" v-text="_.get(report, 'evaluate', '')"></p>
+                                    <p class="text" v-html="renderMarkdown(_.get(report, 'evaluate', ''))"></p>
                                 </div>
                             </div>
                             <div class="body-content pb-5">
                                 <div class="body-content-item">
                                     <h3 class="title">II. ĐỀ XUẤT CẢI THIỆN</h3>
-                                    <p class="text" v-text="_.get(report, 'propose', '')"></p>
+                                    <p class="text" v-html="renderMarkdown(_.get(report, 'propose', ''))"></p>
                                 </div>
                             </div>
                         </div>
@@ -61,6 +61,7 @@ import OpenAI from 'openai';
 </script>
 <script>
 import {toast} from "vue3-toastify";
+import MarkdownIt from "markdown-it";
 
 export default {
 
@@ -164,6 +165,14 @@ export default {
     },
     computed: {},
     methods: {
+        renderMarkdown(markdownText) {
+            const md = new MarkdownIt({
+                html: true,
+                linkify: true,
+                typographer: true,
+            });
+            return md.render(markdownText);
+        },
         loadReport() {
             let vm = this;
             axios.get(`/api/report/${vm.url_query.report_id}`, vm.header_token)

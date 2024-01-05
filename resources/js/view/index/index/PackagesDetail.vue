@@ -157,19 +157,21 @@ export default {
     created() {
         let vm = this;
         let user = localStorage.getItem("user");
-        let token = JSON.parse(user).data.access_token;
-        vm._id = this.$route.params.id
+        if(!user) {
+            this.$router.push({name: 'login.index'})
+        }else{
+            let token = JSON.parse(user).data.access_token;
+            vm._id = this.$route.params.id
+            vm.user = JSON.parse(user).data.user;
+            vm.header_token = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            };
+            vm.loadList();
+        }
 
-
-        vm.user = JSON.parse(user).data.user;
-
-        vm.header_token = {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        };
-        vm.loadList();
     },
     mounted() {
 

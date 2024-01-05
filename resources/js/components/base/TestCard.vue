@@ -17,12 +17,21 @@
                     <span v-text="item?.number_question"></span>
                 </span>
             </div>
-            <button class="btn btn-success">Test Now</button>
+            <button @click="testNow()" class="btn btn-success">Test Now</button>
         </div>
     </div>
 </template>
 <script setup>
+import  {ref, onMounted} from "vue";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 const props = defineProps({
     item: Object,
 });
+const data_packages = ref(props.item)
+function testNow(){
+    router.push({ name: 'packages-detail.index', params: { id: data_packages.value.id } });
+}
+
 </script>

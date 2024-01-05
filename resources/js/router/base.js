@@ -22,5 +22,12 @@ export default  [
         meta: {permission: [], title: 'Report'}, children: [],
         query: {user_id: '', report_id: ''},
         props: true
-    }
+    },
+
+
+
+    {
+        path: '/demov3', name: 'demo3.index', component: () => import('../view/index/index/Demov3.vue'),
+        meta: {permission: [], title: 'DEMO',}, children: [],
+    },
 ]

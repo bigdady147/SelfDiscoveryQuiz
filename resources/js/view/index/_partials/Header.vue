@@ -21,12 +21,19 @@
                         <a class="nav-link" href="#">Contact</a>
                     </li>
                     <li v-if="has_user" class="nav-item">
-                        <div class="login d-flex justify-content-start">
-                            <a href="#" class="nav-link">|</a>
-                            <a class="nav-link" href="#">
-                                <i class="fa-solid fa-user"></i>
-                            </a>
-                            <a class="nav-link" href="#" v-text="_.get(user,'name', '')"></a>
+                        <div class="position-relative">
+                            <div @click="is_show = !is_show" class="login d-flex justify-content-start">
+                                <a href="javascript:void(0)" class="nav-link">|</a>
+                                <a class="nav-link" href="javascript:void(0)">
+                                    <i class="fa-solid fa-user"></i>
+                                </a>
+                                <a class="nav-link" href="#" v-text="_.get(user,'name', '')"></a>
+                            </div>
+                            <div class="drop-user" v-show="is_show">
+                                <div class="block-user">
+                                    <div @click="logOut()" class="block-user-item">Log out</div>
+                                </div>
+                            </div>
                         </div>
                     </li>
                     <li v-else class="nav-item">
@@ -37,10 +44,10 @@
 <!--                                    <i class="fa fa-user nav-link" aria-hidden="true"></i>-->
                                     <i class="fa-solid fa-user"></i>
                                 </a>
-                                <a class="nav-link" href="#">Login</a>
+                                <a @click="loginFunc" class="nav-link" href="#">Login</a>
                             </div>
                             <p class="nav-link nav-link-disable" href="">/</p>
-                            <button type="button" class="nav-link btn-started" >Get started</button>
+                            <button @click="registerFunc" type="button" class="nav-link btn-started">Get started</button>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -62,6 +69,7 @@ export default {
         return {
             has_user: false,
             user: {},
+            is_show: false,
         };
     },
 
@@ -100,6 +108,19 @@ export default {
     computed: {
     },
     methods: {
+        logOut(){
+            let vm = this;
+            this.$router.push({name: 'login.index'})
+        },
+        loginFunc(){
+            this.$router.push({name: 'login.index'})
+
+        },
+        registerFunc(){
+            this.$router.push({name: 'register.index'})
+
+        }
+
     }
 }
 </script>
