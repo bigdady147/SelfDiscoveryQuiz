@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -18,6 +19,14 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    public function index(Request $request)
+    {
+        $perPage = $request->input('per_page', 1);
+        $page = $request->input('page', 1);
+        $order = $request->input('order', 'desc');
+        $report = User::orderBy('created_at', $order)->paginate($perPage, ['*'], 'page', $page);
+        return response()->json($report, 200);
+    }
     public function login(Request $request){
         $validator = Validator::make($request->all(), [
             'username' => 'required',
@@ -103,6 +112,7 @@ class AuthController extends Controller
      */
     protected function createNewToken($token){
         return response()->json([
+            'messages' => 'Login successfully',
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
@@ -137,7 +147,7 @@ class AuthController extends Controller
         $user->phone = $request->input('phone');
         $user->update();
         return response()->json([
-            'message' => 'User update successfull',
+            'message' => 'User updated successfull',
             'user' => $user,
         ], 201);
     }

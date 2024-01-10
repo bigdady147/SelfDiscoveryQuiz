@@ -103,13 +103,13 @@ export default {
             vm.loading = true;
             axios.post(`api/register`, vm.item_edit)
                 .then(response => {
-                    toast.success(response.data.message, {autoClose: 1000});
+                    toast.success(response.data.message, {autoClose: 5000});
                     setTimeout(()=>{
                         vm.loading = false;
                         window.location.href = '/login';
                     }, 500)
                 }).catch(error => {
-                    toast.error(error.message, {autoClose: 1000});
+                    toast.error(error.message, {autoClose: 5000});
                     vm.loading = false;
 
                 })

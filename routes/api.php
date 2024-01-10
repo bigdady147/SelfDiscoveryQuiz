@@ -28,6 +28,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::get('profile', 'userProfile');
     Route::put('profile/{id}', 'updateProfile');
+    Route::get('list-user', 'index');
+
 });
 
 

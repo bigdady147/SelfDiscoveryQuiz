@@ -14,5 +14,9 @@ export default  [
     {
         path: '/administration/packages-management/list-report', name: 'administration.packages_management.list_report', component: () => import('../view/administration/index/packages_management/ListReport.vue'),
         meta: {permission: [], title: 'List Report',}, children: [],
+    },
+    {
+        path: '/administration/packages-management/list-user', name: 'administration.packages_management.list_user', component: () => import('../view/administration/index/user_management/Index.vue'),
+        meta: {permission: [], title: 'List User',}, children: [],
     }
 ]
